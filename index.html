@@ -855,7 +855,7 @@ document.getElementById('footer-year').textContent = new Date().getFullYear();
 
 /* ===== AUTH SYSTEM (LOCAL) ===== */
 let authMode = 'login'; // 'login' or 'register'
-let currentUser = null; // { username, profile, data keys }
+let currentUser = null; // username
 
 function getUsers() {
   return JSON.parse(localStorage.getItem('shadowtech_users') || '{}');
@@ -865,7 +865,7 @@ function saveUsers(users) {
   localStorage.setItem('shadowtech_users', JSON.stringify(users));
 }
 
-// super simple hash (not secure, just obfuscation)
+// simple hash (not secure, just obfuscation)
 function hashPassword(pw) {
   let h = 0;
   for (let i = 0; i < pw.length; i++) {
@@ -1341,6 +1341,19 @@ const wikiData = [
         }
       </div>
     `
+  },
+  {
+    id: 'structure',
+    title: 'Project Structure',
+    body: `
+      <p>Suggested structure for your Shadowtech ecosystem:</p>
+      <ul>
+        <li><strong>Core</strong>: auth, permissions, logging</li>
+        <li><strong>Modules</strong>: commands, events, schedulers</li>
+        <li><strong>Integrations</strong>: APIs, webhooks, dashboards</li>
+        <li><strong>Docs</strong>: this hub + external docs</li>
+      </ul>
+    `
   }
 ];
 
@@ -1396,7 +1409,6 @@ function clearAllData() {
   localStorage.removeItem(keyFor('snippets'));
   localStorage.removeItem(keyFor('tasks'));
   localStorage.removeItem(keyFor('theme_hc'));
-  // profile stays (account-level)
   loadForum(); renderForum();
   loadChangelog(); renderChangelog();
   loadSnippets(); renderSnippets();
