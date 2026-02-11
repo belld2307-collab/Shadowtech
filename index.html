@@ -1,46 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Shadowtech Dev</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="assets/css/style.css">
+<meta charset="UTF-8">
+<title>Shadowtech Dev</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+/* ===== BASIC THEME ===== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0d0f16;
+  color: #fff;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ===== SIDEBAR ===== */
+#sidebar {
+  width: 230px;
+  background: #141722;
+  border-right: 1px solid #222;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+#sidebar h2 {
+  margin: 0 0 20px 0;
+  font-size: 1.2rem;
+}
+
+.sidebar-btn {
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #1b1e2b;
+  border: 1px solid #222;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+  color: #ccc;
+}
+
+.sidebar-btn:hover,
+.sidebar-btn.active {
+  background: #4b8cff;
+  color: #fff;
+}
+
+/* ===== MAIN CONTENT ===== */
+#main {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ===== FORUM ===== */
+#forum-posts {
+  margin-top: 20px;
+}
+
+.post {
+  background: #141722;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #222;
+  margin-bottom: 15px;
+}
+
+.post h3 {
+  margin: 0 0 5px 0;
+}
+
+.post small {
+  color: #888;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  padding: 8px 12px;
+  background: #4b8cff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  background: #3a6fd6;
+}
+
+/* ===== MODAL ===== */
+#modal-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+#modal {
+  background: #141722;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  border: 1px solid #222;
+}
+
+#modal input,
+#modal textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
+  background: #0d0f16;
+  border: 1px solid #333;
+  color: white;
+  border-radius: 5px;
+}
+</style>
 </head>
 
 <body>
-  <header>
-    <div class="logo">Shadowtech<span>Dev</span></div>
-    <nav id="nav">
-      <a href="index.html" class="active">Home</a>
-      <a href="posts.html">Posts</a>
-      <a href="about.html">About</a>
-    </nav>
-    <button id="nav-btn">☰</button>
-  </header>
 
-  <main>
+<!-- ===== SIDEBAR ===== -->
+<div id="sidebar">
+  <h2>Shadowtech Dev</h2>
+  <button class="sidebar-btn active" onclick="showPage('home')">🏠 Home</button>
+  <button class="sidebar-btn" onclick="showPage('forum')">💬 Forum</button>
+  <button class="sidebar-btn" onclick="showPage('wiki')">📘 Wiki</button>
+  <button class="sidebar-btn" onclick="showPage('tools')">🛠 Tools</button>
+  <button class="sidebar-btn" onclick="showPage('profile')">👤 Profile</button>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div id="main">
+
+  <!-- HOME -->
+  <div id="home">
     <h1>Welcome to Shadowtech Dev</h1>
-    <p>This is your simple, clean, fully working website. Add posts, update pages, and customize freely.</p>
+    <p>This is your simple, interactive, one‑file website. Everything works. Nothing breaks.</p>
+  </div>
 
-    <div class="grid">
-      <div class="card">
-        <h2>Posts</h2>
-        <p>View updates, announcements, or anything you want to share.</p>
-        <a href="posts.html" class="btn">Go to Posts</a>
+  <!-- FORUM -->
+  <div id="forum" class="hidden">
+    <h1>Forum</h1>
+    <button class="btn" onclick="openModal()">Create Post</button>
+
+    <div id="forum-posts"></div>
+  </div>
+
+  <!-- WIKI -->
+  <div id="wiki" class="hidden">
+    <h1>Wiki</h1>
+    <p>Simple wiki section. Add anything you want here.</p>
+    <ul>
+      <li>How to use Shadowtech Dev</li>
+      <li>Bot commands</li>
+      <li>Premium system</li>
+    </ul>
+  </div>
+
+  <!-- TOOLS -->
+  <div id="tools" class="hidden">
+    <h1>Tools</h1>
+    <button class="btn" onclick="alert('Button works!')">Click Me</button>
+    <button class="btn" onclick="alert('Another working button!')">Another Button</button>
+  </div>
+
+  <!-- PROFILE -->
+  <div id="profile" class="hidden">
+    <h1>Your Profile</h1>
+    <p>Username: <span id="username">Guest</span></p>
+    <button class="btn" onclick="changeName()">Change Username</button>
+  </div>
+
+</div>
+
+<!-- ===== MODAL ===== -->
+<div id="modal-bg">
+  <div id="modal">
+    <h3>Create Post</h3>
+    <input id="post-title" placeholder="Title">
+    <textarea id="post-body" rows="4" placeholder="Write something..."></textarea>
+    <button class="btn" onclick="createPost()">Post</button>
+    <button class="btn" style="background:#333" onclick="closeModal()">Cancel</button>
+  </div>
+</div>
+
+<script>
+/* ===== PAGE SWITCHING ===== */
+function showPage(page) {
+  document.querySelectorAll('#main > div').forEach(div => div.classList.add('hidden'));
+  document.getElementById(page).classList.remove('hidden');
+
+  document.querySelectorAll('.sidebar-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+/* ===== MODAL ===== */
+function openModal() {
+  document.getElementById('modal-bg').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('modal-bg').style.display = 'none';
+}
+
+/* ===== FORUM SYSTEM ===== */
+let posts = JSON.parse(localStorage.getItem('shadowtech_posts') || '[]');
+
+function renderPosts() {
+  const container = document.getElementById('forum-posts');
+  container.innerHTML = '';
+
+  posts.forEach((p, i) => {
+    container.innerHTML += `
+      <div class="post">
+        <h3>${p.title}</h3>
+        <p>${p.body}</p>
+        <small>Posted: ${p.date}</small>
       </div>
+    `;
+  });
+}
 
-      <div class="card">
-        <h2>About</h2>
-        <p>Explain what Shadowtech Dev is and what you do.</p>
-        <a href="about.html" class="btn">About Page</a>
-      </div>
-    </div>
-  </main>
+function createPost() {
+  const title = document.getElementById('post-title').value;
+  const body = document.getElementById('post-body').value;
 
-  <footer>
-    <p>© <span id="year"></span> Shadowtech Dev</p>
-  </footer>
+  if (!title || !body) return;
 
-  <script src="assets/js/main.js"></script>
+  posts.push({
+    title,
+    body,
+    date: new Date().toLocaleString()
+  });
+
+  localStorage.setItem('shadowtech_posts', JSON.stringify(posts));
+  renderPosts();
+  closeModal();
+}
+
+renderPosts();
+
+/* ===== PROFILE ===== */
+function changeName() {
+  const name = prompt("Enter new username:");
+  if (!name) return;
+  document.getElementById('username').textContent = name;
+  localStorage.setItem('shadowtech_username', name);
+}
+
+document.getElementById('username').textContent =
+  localStorage.getItem('shadowtech_username') || 'Guest';
+</script>
+
 </body>
 </html>
