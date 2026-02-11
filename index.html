@@ -2,16 +2,32 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Shadowtech Dev</title>
+<title>Shadowtech Dev Hub</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-/* ===== BASIC THEME ===== */
+/* ===== THEME ===== */
+:root {
+  --bg: #05060a;
+  --bg-alt: #101321;
+  --panel: #141827;
+  --accent: #4b8cff;
+  --accent-soft: rgba(75, 140, 255, 0.2);
+  --accent-strong: #7b5cff;
+  --text: #f5f7ff;
+  --muted: #9aa0c2;
+  --danger: #ff4b81;
+  --border: #22263a;
+  --radius: 8px;
+  --shadow: 0 0 25px rgba(0,0,0,0.6);
+  --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0d0f16;
-  color: #fff;
+  font-family: var(--font);
+  background: radial-gradient(circle at top, #151a33 0, #05060a 55%);
+  color: var(--text);
   display: flex;
   height: 100vh;
   overflow: hidden;
@@ -19,111 +35,363 @@ body {
 
 /* ===== SIDEBAR ===== */
 #sidebar {
-  width: 230px;
-  background: #141722;
-  border-right: 1px solid #222;
-  padding: 15px;
+  width: 250px;
+  background: linear-gradient(180deg, #0b0e18, #05060a);
+  border-right: 1px solid var(--border);
+  padding: 16px;
   display: flex;
   flex-direction: column;
+  box-shadow: var(--shadow);
 }
 
-#sidebar h2 {
-  margin: 0 0 20px 0;
-  font-size: 1.2rem;
+#logo {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+#logo span {
+  color: var(--accent);
+}
+
+#subtitle {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.sidebar-section-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 12px 0 6px;
 }
 
 .sidebar-btn {
-  padding: 10px;
-  margin-bottom: 10px;
-  background: #1b1e2b;
-  border: 1px solid #222;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  background: transparent;
   border-radius: 6px;
+  border: 1px solid transparent;
   cursor: pointer;
   text-align: left;
-  color: #ccc;
+  color: var(--muted);
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.sidebar-btn:hover,
+.sidebar-btn span.icon {
+  width: 20px;
+  text-align: center;
+}
+
+.sidebar-btn:hover {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
 .sidebar-btn.active {
-  background: #4b8cff;
+  background: var(--accent);
   color: #fff;
+  border-color: var(--accent-strong);
 }
 
-/* ===== MAIN CONTENT ===== */
+#sidebar-footer {
+  margin-top: auto;
+  font-size: 0.7rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+}
+
+/* ===== MAIN AREA ===== */
 #main {
   flex: 1;
-  padding: 20px;
+  padding: 18px 20px;
   overflow-y: auto;
 }
 
-.hidden {
+.page {
   display: none;
 }
 
-/* ===== FORUM ===== */
-#forum-posts {
-  margin-top: 20px;
+.page.active {
+  display: block;
 }
 
-.post {
-  background: #141722;
-  padding: 15px;
-  border-radius: 8px;
-  border: 1px solid #222;
-  margin-bottom: 15px;
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
 }
 
-.post h3 {
-  margin: 0 0 5px 0;
+.page-header h1 {
+  margin: 0;
+  font-size: 1.4rem;
 }
 
-.post small {
-  color: #888;
+.page-header p {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* ===== CARDS / PANELS ===== */
+.grid {
+  display: grid;
+  gap: 14px;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.card {
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 12px 14px;
+  box-shadow: var(--shadow);
+  font-size: 0.9rem;
+}
+
+.card h2 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+}
+
+.card small {
+  color: var(--muted);
 }
 
 /* ===== BUTTONS ===== */
 .btn {
-  padding: 8px 12px;
-  background: #4b8cff;
-  border: none;
-  border-radius: 5px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.85rem;
   cursor: pointer;
-  color: white;
+}
+
+.btn.secondary {
+  background: transparent;
+  border-color: var(--accent-soft);
+  color: var(--text);
+}
+
+.btn.danger {
+  background: var(--danger);
+}
+
+.btn.small {
+  padding: 4px 8px;
+  font-size: 0.75rem;
+}
+
+.btn + .btn {
+  margin-left: 6px;
+}
+
+/* ===== FORUM ===== */
+#forum-actions {
+  margin-bottom: 10px;
+}
+
+#forum-posts {
   margin-top: 10px;
 }
 
-.btn:hover {
-  background: #3a6fd6;
+.post {
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.post-title {
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.post-body {
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+}
+
+.post-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.reply {
+  margin-top: 6px;
+  padding-left: 10px;
+  border-left: 2px solid var(--accent-soft);
+  font-size: 0.8rem;
+}
+
+/* ===== WIKI ===== */
+#wiki-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 12px;
+}
+
+#wiki-sidebar {
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 10px;
+  font-size: 0.85rem;
+}
+
+#wiki-sidebar h3 {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+}
+
+.wiki-topic {
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.wiki-topic:hover,
+.wiki-topic.active {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+#wiki-content {
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 12px 14px;
+  font-size: 0.9rem;
+}
+
+#wiki-content h2 {
+  margin-top: 0;
+}
+
+/* ===== CHANGELOG / SNIPPETS ===== */
+.code-block {
+  background: #05060f;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  padding: 8px;
+  font-family: "Consolas", "Fira Code", monospace;
+  font-size: 0.8rem;
+  overflow-x: auto;
+}
+
+/* ===== PROFILE / SETTINGS ===== */
+.profile-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
 }
 
 /* ===== MODAL ===== */
 #modal-bg {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  inset: 0;
   background: rgba(0,0,0,0.6);
   display: none;
   justify-content: center;
   align-items: center;
+  z-index: 20;
 }
 
 #modal {
-  background: #141722;
-  padding: 20px;
-  border-radius: 8px;
-  width: 300px;
-  border: 1px solid #222;
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 14px;
+  width: 320px;
+  box-shadow: var(--shadow);
+  font-size: 0.9rem;
+}
+
+#modal h3 {
+  margin-top: 0;
 }
 
 #modal input,
-#modal textarea {
+#modal textarea,
+#modal select {
   width: 100%;
-  padding: 8px;
-  margin-top: 8px;
-  background: #0d0f16;
-  border: 1px solid #333;
-  color: white;
-  border-radius: 5px;
+  padding: 7px;
+  margin-top: 6px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #05060f;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 0.85rem;
+}
+
+/* ===== EMOJI PICKER ===== */
+#emoji-picker {
+  margin-top: 6px;
+  font-size: 1.1rem;
+}
+
+#emoji-picker span {
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 800px) {
+  #sidebar {
+    display: none;
+  }
+  body {
+    flex-direction: column;
+  }
+  #main {
+    padding: 12px;
+  }
+  .grid-2, .grid-3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 </style>
 </head>
@@ -132,54 +400,189 @@ body {
 
 <!-- ===== SIDEBAR ===== -->
 <div id="sidebar">
-  <h2>Shadowtech Dev</h2>
-  <button class="sidebar-btn active" onclick="showPage('home')">🏠 Home</button>
-  <button class="sidebar-btn" onclick="showPage('forum')">💬 Forum</button>
-  <button class="sidebar-btn" onclick="showPage('wiki')">📘 Wiki</button>
-  <button class="sidebar-btn" onclick="showPage('tools')">🛠 Tools</button>
-  <button class="sidebar-btn" onclick="showPage('profile')">👤 Profile</button>
+  <div id="logo">Shadowtech<span>Dev</span></div>
+  <div id="subtitle">Developer control hub</div>
+
+  <div class="sidebar-section-title">Main</div>
+  <button class="sidebar-btn active" data-page="home">
+    <span class="icon">🏠</span> Home
+  </button>
+  <button class="sidebar-btn" data-page="forum">
+    <span class="icon">💬</span> Forum
+  </button>
+  <button class="sidebar-btn" data-page="wiki">
+    <span class="icon">📘</span> Wiki
+  </button>
+
+  <div class="sidebar-section-title">Dev</div>
+  <button class="sidebar-btn" data-page="changelog">
+    <span class="icon">📜</span> Changelog
+  </button>
+  <button class="sidebar-btn" data-page="snippets">
+    <span class="icon">💻</span> Snippets
+  </button>
+
+  <div class="sidebar-section-title">User</div>
+  <button class="sidebar-btn" data-page="profile">
+    <span class="icon">👤</span> Profile
+  </button>
+  <button class="sidebar-btn" data-page="settings">
+    <span class="icon">⚙️</span> Settings
+  </button>
+
+  <div id="sidebar-footer">
+    Shadowtech Dev Hub<br>
+    <span id="footer-year"></span>
+  </div>
 </div>
 
-<!-- ===== MAIN CONTENT ===== -->
+<!-- ===== MAIN ===== -->
 <div id="main">
 
   <!-- HOME -->
-  <div id="home">
-    <h1>Welcome to Shadowtech Dev</h1>
-    <p>This is your simple, interactive, one‑file website. Everything works. Nothing breaks.</p>
+  <div id="page-home" class="page active">
+    <div class="page-header">
+      <div>
+        <h1>Shadowtech Dev Hub</h1>
+        <p>Central place for your dev notes, forum, wiki, and tools.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <h2>Forum</h2>
+        <small>Post updates, ideas, bugs, or notes.</small>
+        <p>Use the forum to log progress, brainstorm features, or track issues.</p>
+        <button class="btn small" onclick="goTo('forum')">Open Forum</button>
+      </div>
+      <div class="card">
+        <h2>Wiki</h2>
+        <small>Document your systems.</small>
+        <p>Keep a structured knowledge base for commands, flows, and architecture.</p>
+        <button class="btn small" onclick="goTo('wiki')">Open Wiki</button>
+      </div>
+      <div class="card">
+        <h2>Dev Area</h2>
+        <small>Changelog & snippets.</small>
+        <p>Track what changed and store useful code snippets in one place.</p>
+        <button class="btn small" onclick="goTo('changelog')">View Dev Pages</button>
+      </div>
+    </div>
   </div>
 
   <!-- FORUM -->
-  <div id="forum" class="hidden">
-    <h1>Forum</h1>
-    <button class="btn" onclick="openModal()">Create Post</button>
+  <div id="page-forum" class="page">
+    <div class="page-header">
+      <div>
+        <h1>Forum</h1>
+        <p>Post messages, reply, and keep a dev log. Stored locally in your browser.</p>
+      </div>
+      <div>
+        <button class="btn small" onclick="openModal('post')">New Post</button>
+      </div>
+    </div>
+
+    <div id="forum-actions">
+      <button class="btn small secondary" onclick="clearForum()">Clear All Posts</button>
+    </div>
 
     <div id="forum-posts"></div>
   </div>
 
   <!-- WIKI -->
-  <div id="wiki" class="hidden">
-    <h1>Wiki</h1>
-    <p>Simple wiki section. Add anything you want here.</p>
-    <ul>
-      <li>How to use Shadowtech Dev</li>
-      <li>Bot commands</li>
-      <li>Premium system</li>
-    </ul>
+  <div id="page-wiki" class="page">
+    <div class="page-header">
+      <div>
+        <h1>Wiki</h1>
+        <p>Quick reference for your Shadowtech Dev ecosystem.</p>
+      </div>
+    </div>
+
+    <div id="wiki-layout">
+      <div id="wiki-sidebar">
+        <h3>Topics</h3>
+        <div id="wiki-topics"></div>
+      </div>
+      <div id="wiki-content">
+        <!-- Filled by JS -->
+      </div>
+    </div>
   </div>
 
-  <!-- TOOLS -->
-  <div id="tools" class="hidden">
-    <h1>Tools</h1>
-    <button class="btn" onclick="alert('Button works!')">Click Me</button>
-    <button class="btn" onclick="alert('Another working button!')">Another Button</button>
+  <!-- CHANGELOG -->
+  <div id="page-changelog" class="page">
+    <div class="page-header">
+      <div>
+        <h1>Changelog</h1>
+        <p>Track what you change over time.</p>
+      </div>
+      <div>
+        <button class="btn small" onclick="openModal('changelog')">Add Entry</button>
+      </div>
+    </div>
+
+    <div id="changelog-list" class="grid"></div>
+  </div>
+
+  <!-- SNIPPETS -->
+  <div id="page-snippets" class="page">
+    <div class="page-header">
+      <div>
+        <h1>Snippets</h1>
+        <p>Store useful code or command examples.</p>
+      </div>
+      <div>
+        <button class="btn small" onclick="openModal('snippet')">Add Snippet</button>
+      </div>
+    </div>
+
+    <div id="snippets-list" class="grid"></div>
   </div>
 
   <!-- PROFILE -->
-  <div id="profile" class="hidden">
-    <h1>Your Profile</h1>
-    <p>Username: <span id="username">Guest</span></p>
-    <button class="btn" onclick="changeName()">Change Username</button>
+  <div id="page-profile" class="page">
+    <div class="page-header">
+      <div>
+        <h1>Profile</h1>
+        <p>Local profile for this hub.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="profile-row">
+        <div class="avatar" id="avatar-initials">SD</div>
+        <div>
+          <div><strong id="profile-name">Guest</strong></div>
+          <small id="profile-tagline">Shadowtech Dev user</small>
+        </div>
+      </div>
+      <div style="margin-top:10px;">
+        <button class="btn small" onclick="changeProfile()">Edit Profile</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div id="page-settings" class="page">
+    <div class="page-header">
+      <div>
+        <h1>Settings</h1>
+        <p>Local settings for this hub.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h2>Theme</h2>
+        <p>Toggle between default and high‑contrast mode.</p>
+        <button class="btn small" onclick="toggleTheme()">Toggle Theme</button>
+      </div>
+      <div class="card">
+        <h2>Data</h2>
+        <p>Clear all saved local data (forum, profile, changelog, snippets).</p>
+        <button class="btn small danger" onclick="clearAllData()">Clear All Local Data</button>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -187,80 +590,412 @@ body {
 <!-- ===== MODAL ===== -->
 <div id="modal-bg">
   <div id="modal">
-    <h3>Create Post</h3>
-    <input id="post-title" placeholder="Title">
-    <textarea id="post-body" rows="4" placeholder="Write something..."></textarea>
-    <button class="btn" onclick="createPost()">Post</button>
-    <button class="btn" style="background:#333" onclick="closeModal()">Cancel</button>
+    <h3 id="modal-title">Modal</h3>
+    <div id="modal-body"></div>
+    <div style="margin-top:10px; text-align:right;">
+      <button class="btn small secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn small" id="modal-confirm">Save</button>
+    </div>
   </div>
 </div>
 
 <script>
-/* ===== PAGE SWITCHING ===== */
-function showPage(page) {
-  document.querySelectorAll('#main > div').forEach(div => div.classList.add('hidden'));
-  document.getElementById(page).classList.remove('hidden');
+/* ===== UTIL ===== */
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
 
-  document.querySelectorAll('.sidebar-btn').forEach(btn => btn.classList.remove('active'));
-  event.target.classList.add('active');
+document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+/* ===== NAVIGATION ===== */
+$$('.sidebar-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const page = btn.getAttribute('data-page');
+    goTo(page);
+  });
+});
+
+function goTo(page) {
+  $$('.sidebar-btn').forEach(b => b.classList.remove('active'));
+  const activeBtn = document.querySelector(`.sidebar-btn[data-page="${page}"]`);
+  if (activeBtn) activeBtn.classList.add('active');
+
+  $$('.page').forEach(p => p.classList.remove('active'));
+  const pageDiv = document.getElementById('page-' + page);
+  if (pageDiv) pageDiv.classList.add('active');
 }
 
 /* ===== MODAL ===== */
-function openModal() {
-  document.getElementById('modal-bg').style.display = 'flex';
+let modalMode = null;
+let modalExtra = null;
+
+function openModal(mode, extra = null) {
+  modalMode = mode;
+  modalExtra = extra;
+  const body = $('#modal-body');
+  const title = $('#modal-title');
+  body.innerHTML = '';
+
+  if (mode === 'post') {
+    title.textContent = 'New Forum Post';
+    body.innerHTML = `
+      <input id="post-title" placeholder="Title">
+      <textarea id="post-body" rows="4" placeholder="Write something..."></textarea>
+      <div id="emoji-picker">
+        <span>😀</span><span>🔥</span><span>⚙️</span><span>💻</span><span>🐛</span><span>✅</span>
+      </div>
+    `;
+    setupEmojiPicker('post-body');
+  } else if (mode === 'reply') {
+    title.textContent = 'Reply to Post';
+    body.innerHTML = `
+      <textarea id="reply-body" rows="3" placeholder="Write a reply..."></textarea>
+      <div id="emoji-picker">
+        <span>👍</span><span>👀</span><span>💡</span><span>❗</span><span>✅</span>
+      </div>
+    `;
+    setupEmojiPicker('reply-body');
+  } else if (mode === 'changelog') {
+    title.textContent = 'New Changelog Entry';
+    body.innerHTML = `
+      <input id="chg-title" placeholder="Title">
+      <textarea id="chg-body" rows="3" placeholder="What changed?"></textarea>
+    `;
+  } else if (mode === 'snippet') {
+    title.textContent = 'New Snippet';
+    body.innerHTML = `
+      <input id="snip-title" placeholder="Snippet title">
+      <textarea id="snip-body" rows="4" placeholder="Code or commands..."></textarea>
+    `;
+  }
+
+  $('#modal-confirm').onclick = handleModalConfirm;
+  $('#modal-bg').style.display = 'flex';
 }
 
 function closeModal() {
-  document.getElementById('modal-bg').style.display = 'none';
+  $('#modal-bg').style.display = 'none';
+  modalMode = null;
+  modalExtra = null;
 }
 
-/* ===== FORUM SYSTEM ===== */
-let posts = JSON.parse(localStorage.getItem('shadowtech_posts') || '[]');
+function setupEmojiPicker(targetId) {
+  const picker = $('#emoji-picker');
+  picker.querySelectorAll('span').forEach(span => {
+    span.addEventListener('click', () => {
+      const ta = document.getElementById(targetId);
+      ta.value += span.textContent;
+      ta.focus();
+    });
+  });
+}
 
-function renderPosts() {
-  const container = document.getElementById('forum-posts');
+/* ===== FORUM DATA ===== */
+let forumPosts = JSON.parse(localStorage.getItem('shadowtech_forum') || '[]');
+
+function saveForum() {
+  localStorage.setItem('shadowtech_forum', JSON.stringify(forumPosts));
+}
+
+function renderForum() {
+  const container = $('#forum-posts');
   container.innerHTML = '';
+  if (!forumPosts.length) {
+    container.innerHTML = '<small style="color:var(--muted);">No posts yet. Create one to start your dev log.</small>';
+    return;
+  }
 
-  posts.forEach((p, i) => {
+  forumPosts.forEach((post, index) => {
+    let repliesHtml = '';
+    if (post.replies && post.replies.length) {
+      post.replies.forEach(r => {
+        repliesHtml += `
+          <div class="reply">
+            <div><strong>${r.author}</strong> — <small>${r.date}</small></div>
+            <div>${r.body}</div>
+          </div>
+        `;
+      });
+    }
+
     container.innerHTML += `
       <div class="post">
-        <h3>${p.title}</h3>
-        <p>${p.body}</p>
-        <small>Posted: ${p.date}</small>
+        <div class="post-header">
+          <div>${post.author}</div>
+          <div>${post.date}</div>
+        </div>
+        <div class="post-title">${post.title}</div>
+        <div class="post-body">${post.body}</div>
+        ${repliesHtml}
+        <div class="post-footer">
+          <div>
+            <button class="btn small secondary" onclick="openModal('reply', ${index})">Reply</button>
+          </div>
+          <div>
+            <button class="btn small danger" onclick="deletePost(${index})">Delete</button>
+          </div>
+        </div>
       </div>
     `;
   });
 }
 
-function createPost() {
-  const title = document.getElementById('post-title').value;
-  const body = document.getElementById('post-body').value;
+function deletePost(index) {
+  if (!confirm('Delete this post?')) return;
+  forumPosts.splice(index, 1);
+  saveForum();
+  renderForum();
+}
 
-  if (!title || !body) return;
+function clearForum() {
+  if (!confirm('Clear all forum posts?')) return;
+  forumPosts = [];
+  saveForum();
+  renderForum();
+}
 
-  posts.push({
-    title,
-    body,
-    date: new Date().toLocaleString()
+/* ===== CHANGELOG DATA ===== */
+let changelog = JSON.parse(localStorage.getItem('shadowtech_changelog') || '[]');
+
+function saveChangelog() {
+  localStorage.setItem('shadowtech_changelog', JSON.stringify(changelog));
+}
+
+function renderChangelog() {
+  const list = $('#changelog-list');
+  list.innerHTML = '';
+  if (!changelog.length) {
+    list.innerHTML = '<small style="color:var(--muted);">No changelog entries yet.</small>';
+    return;
+  }
+  changelog.slice().reverse().forEach(entry => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <strong>${entry.title}</strong><br>
+      <small>${entry.date}</small>
+      <p>${entry.body}</p>
+    `;
+    list.appendChild(card);
   });
+}
 
-  localStorage.setItem('shadowtech_posts', JSON.stringify(posts));
-  renderPosts();
+/* ===== SNIPPETS DATA ===== */
+let snippets = JSON.parse(localStorage.getItem('shadowtech_snippets') || '[]');
+
+function saveSnippets() {
+  localStorage.setItem('shadowtech_snippets', JSON.stringify(snippets));
+}
+
+function renderSnippets() {
+  const list = $('#snippets-list');
+  list.innerHTML = '';
+  if (!snippets.length) {
+    list.innerHTML = '<small style="color:var(--muted);">No snippets saved yet.</small>';
+    return;
+  }
+  snippets.slice().reverse().forEach(sn => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <strong>${sn.title}</strong><br>
+      <small>${sn.date}</small>
+      <div class="code-block">${sn.body.replace(/</g, '&lt;')}</div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+/* ===== WIKI DATA ===== */
+const wikiData = [
+  {
+    id: 'overview',
+    title: 'Overview',
+    body: `
+      <p>Shadowtech Dev Hub is your local control center for notes, forum posts, wiki entries, and dev tools.</p>
+      <ul>
+        <li>Use the <strong>Forum</strong> to log progress and ideas.</li>
+        <li>Use the <strong>Wiki</strong> to document systems.</li>
+        <li>Use <strong>Changelog</strong> and <strong>Snippets</strong> for dev work.</li>
+      </ul>
+    `
+  },
+  {
+    id: 'commands',
+    title: 'Command Structure',
+    body: `
+      <p>Example structure for your bot commands:</p>
+      <ul>
+        <li><code>/admin</code> — moderation, logging</li>
+        <li><code>/utility</code> — tools, info</li>
+        <li><code>/fun</code> — cosmetic & social</li>
+        <li><code>/premium</code> — gated features</li>
+      </ul>
+    `
+  },
+  {
+    id: 'premium',
+    title: 'Premium Logic',
+    body: `
+      <p>Owner‑key model:</p>
+      <ul>
+        <li>Owner generates keys with tiers.</li>
+        <li>Users redeem keys via command.</li>
+        <li>Bot checks tier before running premium commands.</li>
+      </ul>
+      <div class="code-block">
+        if (!hasPremium(userId, "PRO")) {<br>
+        &nbsp;&nbsp;return reply("You need PRO tier to use this.");<br>
+        }
+      </div>
+    `
+  }
+];
+
+function renderWikiTopics() {
+  const container = $('#wiki-topics');
+  container.innerHTML = '';
+  wikiData.forEach((topic, i) => {
+    const div = document.createElement('div');
+    div.className = 'wiki-topic' + (i === 0 ? ' active' : '');
+    div.textContent = topic.title;
+    div.onclick = () => selectWiki(topic.id);
+    container.appendChild(div);
+  });
+  selectWiki(wikiData[0].id);
+}
+
+function selectWiki(id) {
+  const topic = wikiData.find(t => t.id === id);
+  if (!topic) return;
+  $$('#wiki-topics .wiki-topic').forEach(el => {
+    el.classList.toggle('active', el.textContent === topic.title);
+  });
+  $('#wiki-content').innerHTML = `<h2>${topic.title}</h2>${topic.body}`;
+}
+
+/* ===== PROFILE ===== */
+let profile = JSON.parse(localStorage.getItem('shadowtech_profile') || '{"name":"Guest","tagline":"Shadowtech Dev user"}');
+
+function saveProfile() {
+  localStorage.setItem('shadowtech_profile', JSON.stringify(profile));
+}
+
+function renderProfile() {
+  $('#profile-name').textContent = profile.name;
+  $('#profile-tagline').textContent = profile.tagline;
+  const initials = profile.name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+  $('#avatar-initials').textContent = initials || 'SD';
+}
+
+function changeProfile() {
+  const name = prompt('Enter display name:', profile.name);
+  if (!name) return;
+  const tagline = prompt('Enter tagline:', profile.tagline);
+  profile.name = name;
+  profile.tagline = tagline || profile.tagline;
+  saveProfile();
+  renderProfile();
+}
+
+/* ===== SETTINGS ===== */
+let highContrast = JSON.parse(localStorage.getItem('shadowtech_theme_hc') || 'false');
+
+function applyTheme() {
+  if (highContrast) {
+    document.body.style.filter = 'contrast(1.15) brightness(1.05)';
+  } else {
+    document.body.style.filter = 'none';
+  }
+}
+
+function toggleTheme() {
+  highContrast = !highContrast;
+  localStorage.setItem('shadowtech_theme_hc', JSON.stringify(highContrast));
+  applyTheme();
+}
+
+function clearAllData() {
+  if (!confirm('Clear all local data? This cannot be undone.')) return;
+  localStorage.removeItem('shadowtech_forum');
+  localStorage.removeItem('shadowtech_changelog');
+  localStorage.removeItem('shadowtech_snippets');
+  localStorage.removeItem('shadowtech_profile');
+  localStorage.removeItem('shadowtech_theme_hc');
+  forumPosts = [];
+  changelog = [];
+  snippets = [];
+  profile = { name: 'Guest', tagline: 'Shadowtech Dev user' };
+  renderForum();
+  renderChangelog();
+  renderSnippets();
+  renderProfile();
+  highContrast = false;
+  applyTheme();
+}
+
+/* ===== MODAL CONFIRM HANDLER ===== */
+function handleModalConfirm() {
+  if (modalMode === 'post') {
+    const title = $('#post-title').value.trim();
+    const body = $('#post-body').value.trim();
+    if (!title || !body) return;
+    forumPosts.push({
+      title,
+      body,
+      author: profile.name || 'Guest',
+      date: new Date().toLocaleString(),
+      replies: []
+    });
+    saveForum();
+    renderForum();
+  } else if (modalMode === 'reply') {
+    const body = $('#reply-body').value.trim();
+    if (!body) return;
+    const idx = modalExtra;
+    if (forumPosts[idx]) {
+      forumPosts[idx].replies = forumPosts[idx].replies || [];
+      forumPosts[idx].replies.push({
+        body,
+        author: profile.name || 'Guest',
+        date: new Date().toLocaleString()
+      });
+      saveForum();
+      renderForum();
+    }
+  } else if (modalMode === 'changelog') {
+    const title = $('#chg-title').value.trim();
+    const body = $('#chg-body').value.trim();
+    if (!title || !body) return;
+    changelog.push({
+      title,
+      body,
+      date: new Date().toLocaleString()
+    });
+    saveChangelog();
+    renderChangelog();
+  } else if (modalMode === 'snippet') {
+    const title = $('#snip-title').value.trim();
+    const body = $('#snip-body').value.trim();
+    if (!title || !body) return;
+    snippets.push({
+      title,
+      body,
+      date: new Date().toLocaleString()
+    });
+    saveSnippets();
+    renderSnippets();
+  }
+
   closeModal();
 }
 
-renderPosts();
-
-/* ===== PROFILE ===== */
-function changeName() {
-  const name = prompt("Enter new username:");
-  if (!name) return;
-  document.getElementById('username').textContent = name;
-  localStorage.setItem('shadowtech_username', name);
-}
-
-document.getElementById('username').textContent =
-  localStorage.getItem('shadowtech_username') || 'Guest';
+/* ===== INIT ===== */
+renderForum();
+renderChangelog();
+renderSnippets();
+renderWikiTopics();
+renderProfile();
+applyTheme();
 </script>
 
 </body>
