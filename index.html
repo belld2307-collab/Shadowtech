@@ -2,1033 +2,401 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ShadowTech Bot Builder</title>
+<title>ShadowsTech Playground – Fireworks Show</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <style>
-:root {
-  --bg: #05060a;
-  --bg-alt: #0b0e18;
-  --panel: #141827;
-  --panel-soft: #101321;
-  --accent: #7b5cff;
-  --accent-soft: rgba(123, 92, 255, 0.2);
-  --accent-strong: #c45bff;
-  --danger: #ff4b81;
-  --text: #f5f7ff;
-  --muted: #9aa0c2;
-  --border: #22263a;
-  --radius: 8px;
-  --shadow: 0 0 25px rgba(0,0,0,0.7);
-  --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: var(--font);
-  background: radial-gradient(circle at top, #171b33 0, #05060a 55%);
-  color: var(--text);
-  height: 100vh;
-}
-
-/* LAYOUT */
-#app {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-}
-
-/* SIDEBAR */
-#sidebar {
-  width: 260px;
-  background: linear-gradient(180deg, var(--bg-alt), #05060a);
-  border-right: 1px solid var(--border);
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: var(--shadow);
-}
-
-#sidebar-header {
-  margin-bottom: 14px;
-}
-
-#brand {
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-#brand span.mark {
-  display: inline-block;
-  padding: 2px 6px;
-  border-radius: 999px;
-  background: var(--accent);
-  margin-right: 4px;
-  font-size: 0.7rem;
-}
-
-#brand-sub {
-  font-size: 0.75rem;
-  color: var(--muted);
-}
-
-.sidebar-section-title {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin: 10px 0 6px;
-}
-
-.sidebar-btn {
-  padding: 7px 9px;
-  margin-bottom: 4px;
-  background: transparent;
-  border-radius: 6px;
-  border: 1px solid transparent;
-  cursor: pointer;
-  text-align: left;
-  color: var(--muted);
-  font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.sidebar-btn span.icon {
-  width: 20px;
-  text-align: center;
-}
-
-.sidebar-btn:hover {
-  background: var(--accent-soft);
-  color: var(--text);
-}
-
-.sidebar-btn.active {
-  background: var(--accent);
-  color: #fff;
-  border-color: var(--accent-strong);
-}
-
-#sidebar-footer {
-  margin-top: auto;
-  font-size: 0.7rem;
-  color: var(--muted);
-  border-top: 1px solid var(--border);
-  padding-top: 8px;
-}
-
-/* MAIN WRAPPER */
-#main-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-/* TOPBAR */
-#topbar {
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 16px;
-  border-bottom: 1px solid var(--border);
-  background: rgba(5,6,10,0.95);
-  backdrop-filter: blur(10px);
-}
-
-#topbar-left {
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-
-#topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.8rem;
-}
-
-#status-pill {
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent);
-  font-size: 0.7rem;
-  text-transform: uppercase;
-}
-
-#user-pill {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-#user-avatar {
-  width: 22px;
-  height: 22px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  font-weight: 700;
-}
-
-/* MAIN CONTENT */
-#main {
-  flex: 1;
-  padding: 14px 16px;
-  overflow-y: auto;
-}
-
-/* PAGES */
-.page {
-  display: none;
-}
-
-.page.active {
-  display: block;
-}
-
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.page-header h1 {
-  margin: 0;
-  font-size: 1.2rem;
-}
-
-.page-header p {
-  margin: 4px 0 0;
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-
-/* GRID / CARDS */
-.grid {
-  display: grid;
-  gap: 12px;
-}
-
-.grid-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.grid-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.card {
-  background: var(--panel);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  padding: 10px 12px;
-  box-shadow: var(--shadow);
-  font-size: 0.9rem;
-}
-
-.card h2 {
-  margin: 0 0 6px;
-  font-size: 1rem;
-}
-
-.card small {
-  color: var(--muted);
-}
-
-/* BUTTONS */
-.btn {
-  padding: 7px 12px;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  background: var(--accent);
-  color: #fff;
-  font-size: 0.85rem;
-  cursor: pointer;
-}
-
-.btn.secondary {
-  background: transparent;
-  border-color: var(--accent-soft);
-  color: var(--text);
-}
-
-.btn.danger {
-  background: var(--danger);
-}
-
-.btn.small {
-  padding: 4px 8px;
-  font-size: 0.75rem;
-}
-
-.btn + .btn {
-  margin-left: 6px;
-}
-
-/* DASHBOARD */
-.badge {
-  display: inline-block;
-  padding: 2px 6px;
-  border-radius: 999px;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  background: var(--accent-soft);
-  color: var(--accent);
-}
-
-/* WORKSPACES */
-.workspace-list-item {
-  padding: 6px 8px;
-  border-radius: 6px;
-  background: var(--panel-soft);
-  border: 1px solid var(--border);
-  margin-bottom: 6px;
-  font-size: 0.85rem;
-  cursor: pointer;
-}
-
-.workspace-list-item.active {
-  border-color: var(--accent);
-}
-
-/* BUILDER LAYOUT */
-.builder-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-  gap: 12px;
-}
-
-.builder-panel {
-  background: var(--panel);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  padding: 10px 12px;
-  font-size: 0.85rem;
-}
-
-.builder-panel h2 {
-  margin: 0 0 6px;
-  font-size: 1rem;
-}
-
-.builder-panel label {
-  display: block;
-  margin-top: 6px;
-  margin-bottom: 2px;
-  font-size: 0.8rem;
-  color: var(--muted);
-}
-
-.builder-panel input,
-.builder-panel select,
-.builder-panel textarea {
-  width: 100%;
-  padding: 6px 8px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  background: #05060f;
-  color: var(--text);
-  font-size: 0.85rem;
-  font-family: var(--font);
-}
-
-.builder-panel textarea {
-  resize: vertical;
-}
-
-/* ACTION LIST */
-.action-list {
-  margin-top: 8px;
-}
-
-.action-item {
-  background: #05060f;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  padding: 6px 8px;
-  margin-bottom: 6px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.action-item-main {
-  font-size: 0.8rem;
-}
-
-.action-item-controls button {
-  margin-left: 4px;
-}
-
-/* LOGS */
-#logs-output {
-  max-height: 260px;
-  overflow-y: auto;
-  font-size: 0.75rem;
-  background: #05060f;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-}
-
-/* PRICING */
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.pricing-card {
-  background: var(--panel);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  padding: 14px;
-  box-shadow: var(--shadow);
-  font-size: 0.9rem;
-}
-
-.pricing-label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 4px;
-}
-
-.pricing-price {
-  font-size: 1.4rem;
-  font-weight: 700;
-}
-
-.pricing-old {
-  font-size: 0.8rem;
-  color: var(--muted);
-  text-decoration: line-through;
-  margin-left: 4px;
-}
-
-.pricing-save {
-  font-size: 0.75rem;
-  color: #4ade80;
-  margin-left: 4px;
-}
-
-.pricing-features {
-  margin-top: 8px;
-  font-size: 0.8rem;
-}
-
-.pricing-features li {
-  margin-bottom: 4px;
-}
-
-/* AUTH BANNER */
-#auth-banner {
-  background: linear-gradient(135deg, #1b2140, #101321);
-  border-radius: var(--radius);
-  border: 1px solid var(--accent-soft);
-  padding: 12px 14px;
-  margin-bottom: 14px;
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  align-items: center;
-  font-size: 0.85rem;
-}
-
-/* RESPONSIVE */
-@media (max-width: 1000px) {
-  #sidebar {
-    display: none;
+  :root {
+    --bg: #02030a;
+    --accent: #7b5cff;
+    --accent-soft: rgba(123, 92, 255, 0.2);
+    --text: #f5f7ff;
+    --muted: #9aa0c2;
+    --border: #22263a;
+    --radius: 10px;
+    --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
-  #app {
-    flex-direction: column;
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: var(--font);
+    background: radial-gradient(circle at top, #171b33 0, #02030a 55%);
+    color: var(--text);
+    overflow: hidden;
   }
-  #main {
-    padding: 10px;
+
+  canvas {
+    display: block;
   }
-  .builder-layout {
-    grid-template-columns: minmax(0, 1fr);
+
+  #overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 5;
   }
-  .pricing-grid {
-    grid-template-columns: minmax(0, 1fr);
+
+  #title-screen, #hud {
+    pointer-events: auto;
   }
-}
+
+  #title-screen {
+    background: rgba(2,3,10,0.92);
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(0,0,0,0.8);
+  }
+
+  #title-screen h1 {
+    margin: 0 0 6px;
+    font-size: 1.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  #title-screen h1 span {
+    color: var(--accent);
+  }
+
+  #title-screen p {
+    margin: 4px 0;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  .btn.secondary {
+    background: transparent;
+    border-color: var(--accent-soft);
+    color: var(--text);
+    margin-left: 6px;
+  }
+
+  #hud {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    padding: 10px 12px;
+    border-radius: var(--radius);
+    background: rgba(2,3,10,0.85);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.8rem;
+    max-width: 260px;
+  }
+
+  #hud h2 {
+    margin: 0 0 4px;
+    font-size: 0.95rem;
+  }
+
+  #hud p {
+    margin: 2px 0;
+    color: var(--muted);
+  }
+
+  #hud label {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  #hud input[type="range"] {
+    width: 100%;
+  }
+
+  #branding {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(2,3,10,0.7);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.75rem;
+    text-align: center;
+  }
+
+  #branding span {
+    color: var(--accent);
+    font-weight: 600;
+  }
 </style>
 </head>
 <body>
 
-<div id="app">
-  <!-- SIDEBAR -->
-  <div id="sidebar">
-    <div id="sidebar-header">
-      <div id="brand"><span class="mark">SB</span>SHADOWBOT STUDIO</div>
-      <div id="brand-sub">Discord bot creator front‑end</div>
-    </div>
+<canvas id="canvas"></canvas>
 
-    <div class="sidebar-section-title">Main</div>
-    <button class="sidebar-btn active" data-page="dashboard">
-      <span class="icon">🏠</span> Dashboard
-    </button>
-    <button class="sidebar-btn" data-page="bots">
-      <span class="icon">🤖</span> Bot Workspaces
-    </button>
-    <button class="sidebar-btn" data-page="builder">
-      <span class="icon">🧩</span> Command Builder
-    </button>
-    <button class="sidebar-btn" data-page="logs">
-      <span class="icon">📜</span> Logs
-    </button>
-    <button class="sidebar-btn" data-page="pricing">
-      <span class="icon">💎</span> Pricing
-    </button>
-
-    <div class="sidebar-section-title">Account</div>
-    <button class="sidebar-btn" data-page="account">
-      <span class="icon">👤</span> Account
-    </button>
-
-    <div id="sidebar-footer">
-      ShadowBot Studio • Front‑end only<br>
-      <span id="footer-year"></span>
-    </div>
-  </div>
-
-  <!-- MAIN WRAPPER -->
-  <div id="main-wrapper">
-    <!-- TOPBAR -->
-    <div id="topbar">
-      <div id="topbar-left">
-        <span id="topbar-page-label">Dashboard</span> • API: <strong id="api-status">Mock</strong>
-      </div>
-      <div id="topbar-right">
-        <span id="status-pill">Not connected</span>
-        <div id="user-pill">
-          <div id="user-avatar">ST</div>
-          <span id="user-name">Guest</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main">
-      <!-- DASHBOARD -->
-      <div id="page-dashboard" class="page active">
-        <div id="auth-banner">
-          <div>
-            <strong>Connect with Discord</strong><br>
-            <span style="color:var(--muted);">
-              Real version should use OAuth2 “Sign in with Discord” — not raw tokens.
-            </span>
-          </div>
-          <div>
-            <button class="btn small" onclick="fakeConnect()">Connect (Mock)</button>
-          </div>
-        </div>
-
-        <div class="grid grid-3">
-          <div class="card">
-            <h2>Bot Workspaces</h2>
-            <small>Your bots managed by ShadowBot Studio.</small>
-            <p style="margin-top:6px;">
-              Total bots: <strong id="stat-bots">0</strong><br>
-              Deployed: <strong id="stat-deployed">0</strong>
-            </p>
-            <button class="btn small" onclick="goTo('bots')">Open Workspaces</button>
-          </div>
-          <div class="card">
-            <h2>Command Builder</h2>
-            <small>Visual builder for commands & events.</small>
-            <p style="margin-top:6px;">
-              Build commands, preview JSON, send to backend API.
-            </p>
-            <button class="btn small" onclick="goTo('builder')">Open Builder</button>
-          </div>
-          <div class="card">
-            <h2>Monetization</h2>
-            <p style="font-size:0.8rem; color:var(--muted);">
-              Charge for hosting, premium features, extra bots, priority support.  
-              Backend must be secure and ToS‑compliant.
-            </p>
-            <button class="btn small secondary" onclick="goTo('pricing')">View Pricing Layout</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- BOT WORKSPACES -->
-      <div id="page-bots" class="page">
-        <div class="page-header">
-          <div>
-            <h1>Bot Workspaces</h1>
-            <p>Each workspace = one Discord bot managed by your backend.</p>
-          </div>
-          <div>
-            <button class="btn small" onclick="createWorkspace()">New Workspace</button>
-          </div>
-        </div>
-
-        <div class="grid grid-2">
-          <div class="card">
-            <h2>Your Bots</h2>
-            <div id="workspace-list"></div>
-          </div>
-          <div class="card">
-            <h2>Selected Bot</h2>
-            <div id="workspace-detail" style="font-size:0.85rem; color:var(--muted);">
-              Select a workspace on the left.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- COMMAND BUILDER -->
-      <div id="page-builder" class="page">
-        <div class="page-header">
-          <div>
-            <h1>Command Builder</h1>
-            <p>Build commands for the selected workspace and send to backend.</p>
-          </div>
-          <div>
-            <button class="btn small secondary" onclick="resetCommandForm()">New Command</button>
-          </div>
-        </div>
-
-        <div class="builder-layout">
-          <div class="builder-panel">
-            <h2>Command Settings</h2>
-            <label for="cmd-name">Command Name</label>
-            <input id="cmd-name" placeholder="e.g. ping, ban, help">
-
-            <label for="cmd-trigger">Trigger Type</label>
-            <select id="cmd-trigger">
-              <option value="slash">Slash Command</option>
-              <option value="prefix">Prefix Command</option>
-              <option value="button">Button Interaction</option>
-            </select>
-
-            <label for="cmd-desc">Description</label>
-            <textarea id="cmd-desc" rows="3" placeholder="What this command does..."></textarea>
-
-            <hr style="border-color:var(--border); margin:10px 0;">
-
-            <h2>Actions</h2>
-            <label for="action-type">Add Action</label>
-            <select id="action-type">
-              <option value="send-message">Send Message</option>
-              <option value="reply-embed">Reply with Embed</option>
-              <option value="add-role">Add Role</option>
-              <option value="remove-role">Remove Role</option>
-              <option value="dm-user">DM User</option>
-              <option value="log-channel">Log to Channel</option>
-            </select>
-
-            <label for="action-content">Action Content</label>
-            <textarea id="action-content" rows="2" placeholder="Message text, role ID, etc."></textarea>
-
-            <div style="margin-top:8px;">
-              <button class="btn small" onclick="addCommandAction()">Add Action</button>
-            </div>
-
-            <div class="action-list" id="cmd-actions-list"></div>
-
-            <div style="margin-top:10px; text-align:right;">
-              <button class="btn small secondary" onclick="resetCommandForm()">Clear</button>
-              <button class="btn small" onclick="saveCommand()">Save Command (Local)</button>
-            </div>
-          </div>
-
-          <div class="builder-panel">
-            <h2>Commands JSON</h2>
-            <small>What you’d send to your backend API.</small>
-            <pre id="cmd-json" style="margin-top:6px; max-height:220px; overflow-y:auto; background:#05060f; padding:8px; border-radius:6px; border:1px solid var(--border); font-size:0.75rem;"></pre>
-            <div style="margin-top:8px; text-align:right;">
-              <button class="btn small secondary" onclick="sendToBackend()">Send to Backend (Mock)</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- LOGS -->
-      <div id="page-logs" class="page">
-        <div class="page-header">
-          <div>
-            <h1>Logs</h1>
-            <p>Fake console output from backend deploy / restart calls.</p>
-          </div>
-        </div>
-
-        <div class="card">
-          <h2>Console</h2>
-          <div id="logs-output"></div>
-        </div>
-      </div>
-
-      <!-- PRICING -->
-      <div id="page-pricing" class="page">
-        <div class="page-header">
-          <div>
-            <h1>Pricing Layout</h1>
-            <p>Use this to pitch your hosting tiers.</p>
-          </div>
-        </div>
-
-        <div class="pricing-grid">
-          <div class="pricing-card">
-            <div class="pricing-label">Single Bot</div>
-            <div>
-              <span class="pricing-price">$3.50</span>
-              <span class="pricing-old">$5.00</span>
-              <span class="pricing-save">SAVE 30%</span>
-            </div>
-            <small>Billed monthly • 1 bot workspace</small>
-            <div class="pricing-features">
-              <ul>
-                <li>1 hosted bot</li>
-                <li>Unlimited commands & events</li>
-                <li>Basic logs</li>
-                <li>Community support</li>
-              </ul>
-            </div>
-            <button class="btn small">Choose Single Bot</button>
-          </div>
-
-          <div class="pricing-card">
-            <div class="pricing-label">Unlimited Bots (Most Popular)</div>
-            <div>
-              <span class="pricing-price">$7.00</span>
-              <span class="pricing-old">$10.00</span>
-              <span class="pricing-save">SAVE 30%</span>
-            </div>
-            <small>Billed monthly • Unlimited workspaces</small>
-            <div class="pricing-features">
-              <ul>
-                <li>Unlimited hosted bots</li>
-                <li>Priority deploy queue</li>
-                <li>Advanced logs & metrics</li>
-                <li>Priority support</li>
-              </ul>
-            </div>
-            <button class="btn small">Choose Unlimited</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- ACCOUNT -->
-      <div id="page-account" class="page">
-        <div class="page-header">
-          <div>
-            <h1>Account</h1>
-            <p>Local mock of your account settings.</p>
-          </div>
-        </div>
-
-        <div class="grid grid-2">
-          <div class="card">
-            <h2>Profile</h2>
-            <p style="font-size:0.85rem;">
-              Real version would sync with your backend user account.
-            </p>
-            <p style="font-size:0.8rem; color:var(--muted);">
-              Use this UI as the base for your real SaaS.
-            </p>
-          </div>
-          <div class="card">
-            <h2>Data</h2>
-            <p style="font-size:0.85rem;">
-              Clear local workspaces & commands.
-            </p>
-            <button class="btn small danger" onclick="clearAllData()">Clear Local Data</button>
-          </div>
-        </div>
-      </div>
-    </div>
+<div id="overlay">
+  <div id="title-screen">
+    <div class="badge">ShadowsTech Playground</div>
+    <h1><span>Fireworks</span> Show</h1>
+    <p>Realistic‑style fireworks, branded for ShadowsTech Playground.</p>
+    <p>Click “Start Show” and enjoy the display. Click anywhere during the show to launch extra shells.</p>
+    <button class="btn" id="startBtn">Start Show</button>
+    <button class="btn secondary" id="muteBtn">Sound: On</button>
   </div>
 </div>
 
+<div id="hud" style="display:none;">
+  <h2>Show Controls</h2>
+  <p>Click / tap to launch extra fireworks.</p>
+  <label>Show Pace
+    <input type="range" id="pace" min="1" max="5" value="3">
+  </label>
+  <label>Brightness
+    <input type="range" id="brightness" min="40" max="90" value="70">
+  </label>
+</div>
+
+<div id="branding">
+  All fireworks proudly branded <span>ShadowsTech Playground</span> • No ads • No tracking
+</div>
+
 <script>
-const $ = (s) => document.querySelector(s);
-const $$ = (s) => document.querySelectorAll(s);
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
 
-document.getElementById('footer-year').textContent = new Date().getFullYear();
+let w, h;
+function resize() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
 
-/* NAV */
-$$('.sidebar-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const page = btn.getAttribute('data-page');
-    goTo(page);
-  });
+/* SOUND SETUP (you can replace these with your own files) */
+let muted = false;
+
+// Replace these with your own realistic sounds (same filenames or adjust below)
+const launchSound = new Audio('launch.mp3');   // short whoosh
+const boomSound   = new Audio('boom.mp3');     // deep explosion
+const crackleSound = new Audio('crackle.mp3'); // crackling tail
+
+[launchSound, boomSound, crackleSound].forEach(a => {
+  a.volume = 0.6;
 });
 
-function goTo(page) {
-  $$('.sidebar-btn').forEach(b => b.classList.remove('active'));
-  const activeBtn = document.querySelector(\`.sidebar-btn[data-page="\${page}"]\`);
-  if (activeBtn) activeBtn.classList.add('active');
-
-  $$('.page').forEach(p => p.classList.remove('active'));
-  const pageDiv = document.getElementById('page-' + page);
-  if (pageDiv) pageDiv.classList.add('active');
-
-  $('#topbar-page-label').textContent = page
-    .split('-')
-    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(' ');
+function playSound(audio) {
+  if (muted) return;
+  const clone = audio.cloneNode();
+  clone.volume = audio.volume;
+  clone.play().catch(() => {});
 }
 
-/* MOCK AUTH */
-let connected = false;
-function fakeConnect() {
-  connected = true;
-  $('#status-pill').textContent = 'Connected (Mock)';
-  $('#status-pill').style.background = 'rgba(74, 222, 128, 0.15)';
-  $('#status-pill').style.color = '#4ade80';
-  $('#user-name').textContent = 'ShadowOwner';
+/* UI ELEMENTS */
+const startBtn = document.getElementById('startBtn');
+const muteBtn = document.getElementById('muteBtn');
+const overlay = document.getElementById('overlay');
+const hud = document.getElementById('hud');
+const paceEl = document.getElementById('pace');
+const brightnessEl = document.getElementById('brightness');
+
+startBtn.addEventListener('click', () => {
+  overlay.style.display = 'none';
+  hud.style.display = 'block';
+  showRunning = true;
+  lastAuto = performance.now();
+});
+
+muteBtn.addEventListener('click', () => {
+  muted = !muted;
+  muteBtn.textContent = 'Sound: ' + (muted ? 'Off' : 'On');
+});
+
+/* UTIL */
+function rand(min, max) {
+  return Math.random() * (max - min) + min;
 }
 
-/* WORKSPACES */
-let workspaces = JSON.parse(localStorage.getItem('sbs_workspaces') || '[]');
-let selectedWorkspaceId = null;
+/* FIREWORK + PARTICLES */
+let fireworks = [];
+let particles = [];
+let showRunning = false;
+let lastAuto = 0;
 
-function createWorkspace() {
-  const name = prompt('Workspace name (bot name):', 'My Shadow Bot');
-  if (!name) return;
-  const ws = {
-    id: Date.now(),
-    name,
-    status: 'stopped',
-    commands: []
-  };
-  workspaces.push(ws);
-  localStorage.setItem('sbs_workspaces', JSON.stringify(workspaces));
-  renderWorkspaces();
-}
-
-function renderWorkspaces() {
-  const list = $('#workspace-list');
-  list.innerHTML = '';
-  if (!workspaces.length) {
-    list.innerHTML = '<small style="color:var(--muted);">No workspaces yet. Create one.</small>';
-  } else {
-    workspaces.forEach(ws => {
-      const div = document.createElement('div');
-      div.className = 'workspace-list-item' + (ws.id === selectedWorkspaceId ? ' active' : '');
-      div.onclick = () => selectWorkspace(ws.id);
-      div.innerHTML = \`
-        <strong>\${ws.name}</strong><br>
-        <small style="color:var(--muted);">Status: \${ws.status}</small>
-      \`;
-      list.appendChild(div);
-    });
+class Firework {
+  constructor(x, targetY, hue) {
+    this.x = x;
+    this.y = h;
+    this.tx = x;
+    this.ty = targetY;
+    this.hue = hue;
+    this.distanceToTarget = Math.hypot(this.tx - this.x, this.ty - this.y);
+    this.distanceTraveled = 0;
+    this.speed = rand(7, 10);
+    this.angle = Math.atan2(this.ty - this.y, this.tx - this.x);
+    this.trail = [];
+    this.trailLength = 6;
+    this.alpha = 1;
+    playSound(launchSound);
   }
-  $('#stat-bots').textContent = workspaces.length;
-  $('#stat-deployed').textContent = workspaces.filter(w => w.status === 'running').length;
-}
 
-function selectWorkspace(id) {
-  selectedWorkspaceId = id;
-  const ws = workspaces.find(w => w.id === id);
-  if (!ws) return;
-  $('#workspace-detail').innerHTML = \`
-    <strong>\${ws.name}</strong><br>
-    <span style="color:var(--muted);">Status: \${ws.status}</span><br><br>
-    <button class="btn small" onclick="mockDeploy()">Deploy (Mock)</button>
-    <button class="btn small secondary" onclick="mockRestart()">Restart (Mock)</button>
-    <button class="btn small danger" onclick="deleteWorkspace()">Delete</button>
-  \`;
-  renderCommandsJSON();
-  renderWorkspaces();
-}
+  update(index) {
+    this.trail.push({ x: this.x, y: this.y });
+    if (this.trail.length > this.trailLength) this.trail.shift();
 
-function deleteWorkspace() {
-  if (!selectedWorkspaceId) return;
-  if (!confirm('Delete this workspace (local only)?')) return;
-  workspaces = workspaces.filter(w => w.id !== selectedWorkspaceId);
-  selectedWorkspaceId = null;
-  localStorage.setItem('sbs_workspaces', JSON.stringify(workspaces));
-  $('#workspace-detail').textContent = 'Select a workspace on the left.';
-  renderWorkspaces();
-  renderCommandsJSON();
-}
+    const vx = Math.cos(this.angle) * this.speed;
+    const vy = Math.sin(this.angle) * this.speed;
+    this.x += vx;
+    this.y += vy;
 
-/* COMMAND BUILDER */
-let currentCmdActions = [];
+    this.distanceTraveled = Math.hypot(this.x - this.tx, this.y - this.ty);
 
-function resetCommandForm() {
-  $('#cmd-name').value = '';
-  $('#cmd-trigger').value = 'slash';
-  $('#cmd-desc').value = '';
-  $('#action-type').value = 'send-message';
-  $('#action-content').value = '';
-  currentCmdActions = [];
-  renderCommandActions();
-}
-
-function addCommandAction() {
-  const type = $('#action-type').value;
-  const content = $('#action-content').value.trim();
-  if (!content) return;
-  currentCmdActions.push({ type, content });
-  $('#action-content').value = '';
-  renderCommandActions();
-}
-
-function renderCommandActions() {
-  const list = $('#cmd-actions-list');
-  list.innerHTML = '';
-  if (!currentCmdActions.length) {
-    list.innerHTML = '<small style="color:var(--muted);">No actions yet. Add one above.</small>';
-    return;
+    if (Math.abs(this.y - this.ty) < 10 || this.distanceTraveled > this.distanceToTarget) {
+      createExplosion(this.x, this.y, this.hue);
+      fireworks.splice(index, 1);
+    }
   }
-  currentCmdActions.forEach((a, i) => {
-    const div = document.createElement('div');
-    div.className = 'action-item';
-    div.innerHTML = \`
-      <div class="action-item-main">
-        <strong>\${a.type}</strong><br>
-        <span>\${a.content}</span>
-      </div>
-      <div class="action-item-controls">
-        <button class="btn small secondary" onclick="moveCmdAction(\${i}, -1)">▲</button>
-        <button class="btn small secondary" onclick="moveCmdAction(\${i}, 1)">▼</button>
-        <button class="btn small danger" onclick="deleteCmdAction(\${i})">✕</button>
-      </div>
-    \`;
-    list.appendChild(div);
+
+  draw() {
+    ctx.beginPath();
+    const last = this.trail[0] || { x: this.x, y: this.y };
+    ctx.moveTo(last.x, last.y);
+    ctx.lineTo(this.x, this.y);
+    ctx.strokeStyle = `hsla(${this.hue}, 80%, 70%, 0.9)`;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
+}
+
+class Particle {
+  constructor(x, y, hue) {
+    this.x = x;
+    this.y = y;
+    this.hue = hue + rand(-10, 10);
+    this.speed = rand(1, 7);
+    this.angle = rand(0, Math.PI * 2);
+    this.friction = 0.94;
+    this.gravity = 0.25;
+    this.alpha = 1;
+    this.decay = rand(0.01, 0.03);
+    this.brightness = parseInt(brightnessEl.value);
+    this.trail = [];
+    this.trailLength = 8;
+    this.spark = Math.random() < 0.3;
+  }
+
+  update(index) {
+    this.trail.push({ x: this.x, y: this.y });
+    if (this.trail.length > this.trailLength) this.trail.shift();
+
+    this.speed *= this.friction;
+    this.x += Math.cos(this.angle) * this.speed;
+    this.y += Math.sin(this.angle) * this.speed + this.gravity;
+
+    this.alpha -= this.decay;
+    if (this.alpha <= this.decay) {
+      particles.splice(index, 1);
+    }
+  }
+
+  draw() {
+    ctx.beginPath();
+    const last = this.trail[0] || { x: this.x, y: this.y };
+    ctx.moveTo(last.x, last.y);
+    ctx.lineTo(this.x, this.y);
+    const a = this.alpha.toFixed(2);
+    ctx.strokeStyle = `hsla(${this.hue}, 90%, ${this.brightness}%, ${a})`;
+    ctx.lineWidth = this.spark ? 1.5 : 1;
+    ctx.stroke();
+  }
+}
+
+function createExplosion(x, y, hue) {
+  const count = 80;
+  for (let i = 0; i < count; i++) {
+    particles.push(new Particle(x, y, hue));
+  }
+  playSound(boomSound);
+  if (Math.random() < 0.4) playSound(crackleSound);
+}
+
+/* AUTO SHOW CHOREOGRAPHY */
+function autoShow(timestamp) {
+  if (!showRunning) return;
+  const pace = parseInt(paceEl.value); // 1 slow, 5 fast
+  const interval = 900 - pace * 130;   // ms between shells
+
+  if (timestamp - lastAuto > interval) {
+    lastAuto = timestamp;
+    const x = rand(w * 0.15, w * 0.85);
+    const y = rand(h * 0.15, h * 0.45);
+    const hue = rand(0, 360);
+    fireworks.push(new Firework(x, y, hue));
+  }
+}
+
+/* INPUT: EXTRA SHELLS */
+function launchAtPointer(e) {
+  if (!showRunning) return;
+  const rect = canvas.getBoundingClientRect();
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  const x = clientX - rect.left;
+  const y = clientY - rect.top;
+  const hue = rand(0, 360);
+  fireworks.push(new Firework(x, y, hue));
+}
+
+canvas.addEventListener('mousedown', launchAtPointer);
+canvas.addEventListener('touchstart', launchAtPointer, { passive: true });
+
+/* MAIN LOOP */
+function loop(timestamp) {
+  requestAnimationFrame(loop);
+
+  // fade background for trails
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.fillStyle = 'rgba(2,3,10,0.35)';
+  ctx.fillRect(0, 0, w, h);
+  ctx.globalCompositeOperation = 'lighter';
+
+  fireworks.forEach((fw, i) => {
+    fw.update(i);
+    fw.draw();
   });
-}
 
-function moveCmdAction(index, dir) {
-  const newIndex = index + dir;
-  if (newIndex < 0 || newIndex >= currentCmdActions.length) return;
-  const temp = currentCmdActions[index];
-  currentCmdActions[index] = currentCmdActions[newIndex];
-  currentCmdActions[newIndex] = temp;
-  renderCommandActions();
-}
-
-function deleteCmdAction(index) {
-  currentCmdActions.splice(index, 1);
-  renderCommandActions();
-}
-
-function saveCommand() {
-  if (!selectedWorkspaceId) {
-    alert('Select a workspace first.');
-    return;
-  }
-  const name = $('#cmd-name').value.trim();
-  const trigger = $('#cmd-trigger').value;
-  const desc = $('#cmd-desc').value.trim();
-  if (!name) return alert('Command name required.');
-  const ws = workspaces.find(w => w.id === selectedWorkspaceId);
-  if (!ws) return;
-  ws.commands.push({
-    id: Date.now(),
-    name,
-    trigger,
-    desc,
-    actions: currentCmdActions.slice()
+  particles.forEach((p, i) => {
+    p.update(i);
+    p.draw();
   });
-  localStorage.setItem('sbs_workspaces', JSON.stringify(workspaces));
-  resetCommandForm();
-  renderCommandsJSON();
-  log('Saved command to workspace "' + ws.name + '" (local).');
+
+  autoShow(timestamp);
 }
 
-/* COMMANDS JSON */
-function renderCommandsJSON() {
-  const pre = $('#cmd-json');
-  if (!selectedWorkspaceId) {
-    pre.textContent = '// Select a workspace to see its commands JSON.';
-    return;
-  }
-  const ws = workspaces.find(w => w.id === selectedWorkspaceId);
-  if (!ws || !ws.commands.length) {
-    pre.textContent = '// No commands yet for this workspace.';
-    return;
-  }
-  const payload = {
-    workspaceId: ws.id,
-    commands: ws.commands
-  };
-  pre.textContent = JSON.stringify(payload, null, 2);
-}
-
-/* MOCK BACKEND SEND */
-function sendToBackend() {
-  if (!selectedWorkspaceId) {
-    alert('Select a workspace first.');
-    return;
-  }
-  const ws = workspaces.find(w => w.id === selectedWorkspaceId);
-  if (!ws) return;
-  const payload = {
-    workspaceId: ws.id,
-    commands: ws.commands
-  };
-  // In real life: fetch('/api/workspaces/' + ws.id + '/commands', { method: 'POST', body: JSON.stringify(payload) ... })
-  log('Mock send to backend: ' + JSON.stringify(payload).slice(0, 120) + '...');
-  alert('Mock: would send commands JSON to your backend API.');
-}
-
-/* MOCK DEPLOY / RESTART */
-function mockDeploy() {
-  if (!selectedWorkspaceId) return;
-  const ws = workspaces.find(w => w.id === selectedWorkspaceId);
-  if (!ws) return;
-  ws.status = 'running';
-  localStorage.setItem('sbs_workspaces', JSON.stringify(workspaces));
-  renderWorkspaces();
-  selectWorkspace(ws.id);
-  log('Mock deploy for workspace "' + ws.name + '". Backend would start bot process here.');
-}
-
-function mockRestart() {
-  if (!selectedWorkspaceId) return;
-  const ws = workspaces.find(w => w.id === selectedWorkspaceId);
-  if (!ws) return;
-  log('Mock restart for workspace "' + ws.name + '". Backend would restart bot process.');
-}
-
-/* LOGS */
-function log(message) {
-  const out = $('#logs-output');
-  const line = document.createElement('div');
-  line.textContent = '[' + new Date().toLocaleTimeString() + '] ' + message;
-  out.appendChild(line);
-  out.scrollTop = out.scrollHeight;
-}
-
-/* CLEAR DATA */
-function clearAllData() {
-  if (!confirm('Clear all local workspaces and commands?')) return;
-  workspaces = [];
-  selectedWorkspaceId = null;
-  localStorage.removeItem('sbs_workspaces');
-  renderWorkspaces();
-  renderCommandsJSON();
-  $('#workspace-detail').textContent = 'Select a workspace on the left.';
-}
-
-/* INIT */
-function init() {
-  renderWorkspaces();
-  renderCommandsJSON();
-}
-init();
+requestAnimationFrame(loop);
 </script>
 
 </body>
