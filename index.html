@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ShadowsTech Playground – Fireworks Show</title>
+<title>ShadowsTech Ball Drop</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   :root {
     --bg: #02030a;
     --accent: #7b5cff;
-    --accent-soft: rgba(123, 92, 255, 0.2);
+    --accent2: #ff5cf0;
     --text: #f5f7ff;
     --muted: #9aa0c2;
     --border: #22263a;
-    --radius: 10px;
+    --radius: 12px;
     --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
@@ -40,32 +40,29 @@
     z-index: 5;
   }
 
-  #title-screen, #hud {
+  #panel {
     pointer-events: auto;
-  }
-
-  #title-screen {
     background: rgba(2,3,10,0.92);
     border-radius: 18px;
     border: 1px solid var(--border);
-    padding: 20px 24px;
+    padding: 18px 22px;
     max-width: 420px;
     text-align: center;
     box-shadow: 0 0 40px rgba(0,0,0,0.8);
   }
 
-  #title-screen h1 {
+  #panel h1 {
     margin: 0 0 6px;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
-  #title-screen h1 span {
+  #panel h1 span {
     color: var(--accent);
   }
 
-  #title-screen p {
+  #panel p {
     margin: 4px 0;
     font-size: 0.9rem;
     color: var(--muted);
@@ -75,11 +72,16 @@
     display: inline-block;
     padding: 3px 8px;
     border-radius: 999px;
-    background: var(--accent-soft);
+    background: rgba(123, 92, 255, 0.2);
     color: var(--accent);
     font-size: 0.7rem;
     text-transform: uppercase;
     margin-bottom: 6px;
+  }
+
+  #countdown {
+    font-size: 1.1rem;
+    margin-top: 8px;
   }
 
   .btn {
@@ -95,43 +97,9 @@
 
   .btn.secondary {
     background: transparent;
-    border-color: var(--accent-soft);
+    border-color: rgba(123, 92, 255, 0.3);
     color: var(--text);
     margin-left: 6px;
-  }
-
-  #hud {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    padding: 10px 12px;
-    border-radius: var(--radius);
-    background: rgba(2,3,10,0.85);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-size: 0.8rem;
-    max-width: 260px;
-  }
-
-  #hud h2 {
-    margin: 0 0 4px;
-    font-size: 0.95rem;
-  }
-
-  #hud p {
-    margin: 2px 0;
-    color: var(--muted);
-  }
-
-  #hud label {
-    display: block;
-    margin-top: 6px;
-    font-size: 0.75rem;
-    color: var(--muted);
-  }
-
-  #hud input[type="range"] {
-    width: 100%;
   }
 
   #branding {
@@ -146,11 +114,26 @@
     color: var(--muted);
     font-size: 0.75rem;
     text-align: center;
+    z-index: 4;
   }
 
   #branding span {
     color: var(--accent);
     font-weight: 600;
+  }
+
+  #hint {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    padding: 8px 10px;
+    border-radius: var(--radius);
+    background: rgba(2,3,10,0.85);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.8rem;
+    max-width: 260px;
+    z-index: 4;
   }
 </style>
 </head>
@@ -159,29 +142,22 @@
 <canvas id="canvas"></canvas>
 
 <div id="overlay">
-  <div id="title-screen">
+  <div id="panel">
     <div class="badge">ShadowsTech Playground</div>
-    <h1><span>Fireworks</span> Show</h1>
-    <p>Realistic‑style fireworks, branded for ShadowsTech Playground.</p>
-    <p>Click “Start Show” and enjoy the display. Click anywhere during the show to launch extra shells.</p>
-    <button class="btn" id="startBtn">Start Show</button>
-    <button class="btn secondary" id="muteBtn">Sound: On</button>
+    <h1><span>Ball</span> Drop</h1>
+    <p>Automatic ball drop tuned for <strong>today at 4:00 PM</strong>.</p>
+    <p id="countdown">Calculating time…</p>
+    <button class="btn" id="testBtn">Test Drop Now</button>
+    <button class="btn secondary" id="closeBtn" style="display:none;">Close</button>
   </div>
 </div>
 
-<div id="hud" style="display:none;">
-  <h2>Show Controls</h2>
-  <p>Click / tap to launch extra fireworks.</p>
-  <label>Show Pace
-    <input type="range" id="pace" min="1" max="5" value="3">
-  </label>
-  <label>Brightness
-    <input type="range" id="brightness" min="40" max="90" value="70">
-  </label>
+<div id="hint">
+  This demo is locked to <strong>today at 4:00 PM</strong> so you can test it.
 </div>
 
 <div id="branding">
-  All fireworks proudly branded <span>ShadowsTech Playground</span> • No ads • No tracking
+  ShadowsTech <span>Ball Drop</span> • No ads • No tracking
 </div>
 
 <script>
@@ -196,55 +172,73 @@ function resize() {
 window.addEventListener('resize', resize);
 resize();
 
-/* SOUND SETUP (you can replace these with your own files) */
-let muted = false;
-
-// Replace these with your own realistic sounds (same filenames or adjust below)
-const launchSound = new Audio('launch.mp3');   // short whoosh
-const boomSound   = new Audio('boom.mp3');     // deep explosion
-const crackleSound = new Audio('crackle.mp3'); // crackling tail
-
-[launchSound, boomSound, crackleSound].forEach(a => {
-  a.volume = 0.6;
-});
-
-function playSound(audio) {
-  if (muted) return;
-  const clone = audio.cloneNode();
-  clone.volume = audio.volume;
-  clone.play().catch(() => {});
+/* TIMING: today at 16:00 (4 PM) */
+function getTodayTarget() {
+  const now = new Date();
+  const target = new Date();
+  target.setHours(16, 0, 0, 0); // 4:00 PM today
+  if (target.getTime() <= now.getTime()) {
+    target.setDate(target.getDate() + 1);
+  }
+  return target;
 }
 
-/* UI ELEMENTS */
-const startBtn = document.getElementById('startBtn');
-const muteBtn = document.getElementById('muteBtn');
+let targetTime = getTodayTarget();
+
+/* COUNTDOWN */
+const countdownEl = document.getElementById('countdown');
 const overlay = document.getElementById('overlay');
-const hud = document.getElementById('hud');
-const paceEl = document.getElementById('pace');
-const brightnessEl = document.getElementById('brightness');
+const testBtn = document.getElementById('testBtn');
+const closeBtn = document.getElementById('closeBtn');
 
-startBtn.addEventListener('click', () => {
+let dropStarted = false;
+
+function updateCountdown() {
+  if (dropStarted) return;
+  const now = new Date();
+  const diff = targetTime - now;
+  if (diff <= 0) {
+    startDrop();
+    return;
+  }
+  const totalSeconds = Math.floor(diff / 1000);
+  const h = Math.floor((totalSeconds % 86400) / 3600);
+  const m = Math.floor((totalSeconds % 3600) / 60);
+  const s = totalSeconds % 60;
+  countdownEl.textContent =
+    String(h).padStart(2, '0') + ":" +
+    String(m).padStart(2, '0') + ":" +
+    String(s).padStart(2, '0');
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+/* TEST BUTTON */
+testBtn.addEventListener('click', () => {
+  startDrop(true);
+});
+
+/* CLOSE BUTTON */
+closeBtn.addEventListener('click', () => {
   overlay.style.display = 'none';
-  hud.style.display = 'block';
-  showRunning = true;
-  lastAuto = performance.now();
 });
 
-muteBtn.addEventListener('click', () => {
-  muted = !muted;
-  muteBtn.textContent = 'Sound: ' + (muted ? 'Off' : 'On');
-});
+/* BALL + FIREWORKS */
+let ballY;
+let ballX;
+let ballRadius;
+let ballDropping = false;
+let ballStartTime = 0;
+let ballDuration = 10000;
 
-/* UTIL */
+let fireworks = [];
+let particles = [];
+let showFireworks = false;
+
 function rand(min, max) {
   return Math.random() * (max - min) + min;
 }
-
-/* FIREWORK + PARTICLES */
-let fireworks = [];
-let particles = [];
-let showRunning = false;
-let lastAuto = 0;
 
 class Firework {
   constructor(x, targetY, hue) {
@@ -253,14 +247,10 @@ class Firework {
     this.tx = x;
     this.ty = targetY;
     this.hue = hue;
-    this.distanceToTarget = Math.hypot(this.tx - this.x, this.ty - this.y);
-    this.distanceTraveled = 0;
     this.speed = rand(7, 10);
     this.angle = Math.atan2(this.ty - this.y, this.tx - this.x);
     this.trail = [];
     this.trailLength = 6;
-    this.alpha = 1;
-    playSound(launchSound);
   }
 
   update(index) {
@@ -272,9 +262,7 @@ class Firework {
     this.x += vx;
     this.y += vy;
 
-    this.distanceTraveled = Math.hypot(this.x - this.tx, this.y - this.ty);
-
-    if (Math.abs(this.y - this.ty) < 10 || this.distanceTraveled > this.distanceToTarget) {
+    if (Math.abs(this.y - this.ty) < 10) {
       createExplosion(this.x, this.y, this.hue);
       fireworks.splice(index, 1);
     }
@@ -302,10 +290,9 @@ class Particle {
     this.gravity = 0.25;
     this.alpha = 1;
     this.decay = rand(0.01, 0.03);
-    this.brightness = parseInt(brightnessEl.value);
+    this.brightness = rand(55, 85);
     this.trail = [];
     this.trailLength = 8;
-    this.spark = Math.random() < 0.3;
   }
 
   update(index) {
@@ -329,59 +316,110 @@ class Particle {
     ctx.lineTo(this.x, this.y);
     const a = this.alpha.toFixed(2);
     ctx.strokeStyle = `hsla(${this.hue}, 90%, ${this.brightness}%, ${a})`;
-    ctx.lineWidth = this.spark ? 1.5 : 1;
+    ctx.lineWidth = 1.2;
     ctx.stroke();
   }
 }
 
 function createExplosion(x, y, hue) {
-  const count = 80;
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < 80; i++) {
     particles.push(new Particle(x, y, hue));
   }
-  playSound(boomSound);
-  if (Math.random() < 0.4) playSound(crackleSound);
 }
 
-/* AUTO SHOW CHOREOGRAPHY */
-function autoShow(timestamp) {
-  if (!showRunning) return;
-  const pace = parseInt(paceEl.value); // 1 slow, 5 fast
-  const interval = 900 - pace * 130;   // ms between shells
+/* START DROP */
+function startDrop(fromTest = false) {
+  if (dropStarted) return;
+  dropStarted = true;
+  ballDropping = true;
+  ballStartTime = performance.now();
+  ballX = w / 2;
+  ballRadius = Math.min(w, h) * 0.04;
+  ballY = h * 0.15;
 
-  if (timestamp - lastAuto > interval) {
-    lastAuto = timestamp;
-    const x = rand(w * 0.15, w * 0.85);
-    const y = rand(h * 0.15, h * 0.45);
-    const hue = rand(0, 360);
-    fireworks.push(new Firework(x, y, hue));
+  if (!fromTest) {
+    overlay.style.display = 'none';
+  } else {
+    closeBtn.style.display = 'inline-block';
+    testBtn.textContent = 'Drop Running…';
+    testBtn.disabled = true;
   }
 }
-
-/* INPUT: EXTRA SHELLS */
-function launchAtPointer(e) {
-  if (!showRunning) return;
-  const rect = canvas.getBoundingClientRect();
-  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-  const x = clientX - rect.left;
-  const y = clientY - rect.top;
-  const hue = rand(0, 360);
-  fireworks.push(new Firework(x, y, hue));
-}
-
-canvas.addEventListener('mousedown', launchAtPointer);
-canvas.addEventListener('touchstart', launchAtPointer, { passive: true });
 
 /* MAIN LOOP */
 function loop(timestamp) {
   requestAnimationFrame(loop);
 
-  // fade background for trails
   ctx.globalCompositeOperation = 'destination-out';
   ctx.fillStyle = 'rgba(2,3,10,0.35)';
   ctx.fillRect(0, 0, w, h);
   ctx.globalCompositeOperation = 'lighter';
+
+  if (ballDropping) {
+    const t = (timestamp - ballStartTime) / ballDuration;
+    const eased = t < 1 ? (1 - Math.pow(1 - t, 3)) : 1;
+    const startY = h * 0.15;
+    const endY = h * 0.6;
+    ballY = startY + (endY - startY) * eased;
+
+    const gradient = ctx.createRadialGradient(
+      ballX, ballY, ballRadius * 0.2,
+      ballX, ballY, ballRadius * 2.5
+    );
+    gradient.addColorStop(0, 'rgba(255,255,255,0.9)');
+    gradient.addColorStop(0.3, 'rgba(123,92,255,0.8)');
+    gradient.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.arc(ballX, ballY, ballRadius * 2.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,255,255,0.95)';
+    ctx.fill();
+
+    ctx.strokeStyle = 'rgba(123,92,255,0.9)';
+    ctx.lineWidth = 1;
+    for (let i = -2; i <= 2; i++) {
+      ctx.beginPath();
+      ctx.moveTo(ballX - ballRadius, ballY + i * (ballRadius / 3));
+      ctx.lineTo(ballX + ballRadius, ballY + i * (ballRadius / 3));
+      ctx.stroke();
+    }
+    for (let i = -2; i <= 2; i++) {
+      ctx.beginPath();
+      ctx.moveTo(ballX + i * (ballRadius / 3), ballY - ballRadius);
+      ctx.lineTo(ballX + i * (ballRadius / 3), ballY + ballRadius);
+      ctx.stroke();
+    }
+
+    ctx.beginPath();
+    ctx.moveTo(ballX, 0);
+    ctx.lineTo(ballX, ballY - ballRadius);
+    ctx.strokeStyle = 'rgba(180,180,220,0.6)';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    if (t >= 1 && !showFireworks) {
+      showFireworks = true;
+      for (let i = 0; i < 5; i++) {
+        const fx = rand(w * 0.2, w * 0.8);
+        const fy = rand(h * 0.15, h * 0.45);
+        const hue = rand(0, 360);
+        fireworks.push(new Firework(fx, fy, hue));
+      }
+    }
+  }
+
+  if (showFireworks) {
+    if (Math.random() < 0.05) {
+      const fx = rand(w * 0.1, w * 0.9);
+      const fy = rand(h * 0.1, h * 0.5);
+      const hue = rand(0, 360);
+      fireworks.push(new Firework(fx, fy, hue));
+    }
+  }
 
   fireworks.forEach((fw, i) => {
     fw.update(i);
@@ -392,8 +430,6 @@ function loop(timestamp) {
     p.update(i);
     p.draw();
   });
-
-  autoShow(timestamp);
 }
 
 requestAnimationFrame(loop);
