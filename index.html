@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-/* ===== THEME ===== */
 :root {
   --bg: #05060a;
   --bg-alt: #101321;
@@ -23,17 +22,103 @@
   --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: var(--font);
   background: radial-gradient(circle at top, #151a33 0, #05060a 55%);
   color: var(--text);
+  height: 100vh;
+}
+
+/* LOGIN SCREEN */
+#login-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, #151a33 0, #05060a 55%);
+  z-index: 50;
+}
+
+#login-box {
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 18px 20px;
+  width: 340px;
+  box-shadow: var(--shadow);
+}
+
+#login-box h1 {
+  margin: 0 0 6px;
+  font-size: 1.3rem;
+}
+
+#login-box p {
+  margin: 0 0 12px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+#login-tabs {
+  display: flex;
+  margin-bottom: 10px;
+  border-radius: 999px;
+  background: #05060f;
+  padding: 2px;
+}
+
+.login-tab {
+  flex: 1;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 999px;
+  color: var(--muted);
+}
+
+.login-tab.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+#login-box input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #05060f;
+  color: var(--text);
+}
+
+#login-error {
+  font-size: 0.8rem;
+  color: var(--danger);
+  min-height: 16px;
+  margin-bottom: 6px;
+}
+
+#login-box button {
+  width: 100%;
+}
+
+/* APP LAYOUT */
+#app {
   display: flex;
   height: 100vh;
   overflow: hidden;
 }
 
-/* ===== SIDEBAR ===== */
+/* SIDEBAR */
 #sidebar {
   width: 250px;
   background: linear-gradient(180deg, #0b0e18, #05060a);
@@ -108,7 +193,64 @@ body {
   padding-top: 8px;
 }
 
-/* ===== MAIN AREA ===== */
+/* MAIN WRAPPER (TOPBAR + CONTENT) */
+#main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* TOPBAR */
+#topbar {
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(5,6,10,0.9);
+  backdrop-filter: blur(10px);
+}
+
+#topbar-left {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+#topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+}
+
+#notif-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+
+#topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#topbar-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+/* MAIN CONTENT */
 #main {
   flex: 1;
   padding: 18px 20px;
@@ -141,7 +283,7 @@ body {
   color: var(--muted);
 }
 
-/* ===== CARDS / PANELS ===== */
+/* GRID / CARDS */
 .grid {
   display: grid;
   gap: 14px;
@@ -173,7 +315,7 @@ body {
   color: var(--muted);
 }
 
-/* ===== BUTTONS ===== */
+/* BUTTONS */
 .btn {
   padding: 7px 12px;
   border-radius: 999px;
@@ -203,7 +345,7 @@ body {
   margin-left: 6px;
 }
 
-/* ===== FORUM ===== */
+/* FORUM */
 #forum-actions {
   margin-bottom: 10px;
 }
@@ -254,7 +396,7 @@ body {
   font-size: 0.8rem;
 }
 
-/* ===== WIKI ===== */
+/* WIKI */
 #wiki-layout {
   display: grid;
   grid-template-columns: 220px minmax(0, 1fr);
@@ -299,7 +441,7 @@ body {
   margin-top: 0;
 }
 
-/* ===== CHANGELOG / SNIPPETS ===== */
+/* CODE BLOCKS */
 .code-block {
   background: #05060f;
   border-radius: 6px;
@@ -310,7 +452,7 @@ body {
   overflow-x: auto;
 }
 
-/* ===== PROFILE / SETTINGS ===== */
+/* PROFILE */
 .profile-row {
   display: flex;
   align-items: center;
@@ -328,7 +470,42 @@ body {
   font-weight: 700;
 }
 
-/* ===== MODAL ===== */
+/* TASK BOARD */
+#task-board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.task-column {
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 10px;
+  font-size: 0.85rem;
+}
+
+.task-column h3 {
+  margin: 0 0 6px;
+  font-size: 0.9rem;
+}
+
+.task-item {
+  background: #05060f;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-item span {
+  font-size: 0.8rem;
+}
+
+/* MODAL */
 #modal-bg {
   position: fixed;
   inset: 0;
@@ -367,7 +544,7 @@ body {
   font-size: 0.85rem;
 }
 
-/* ===== EMOJI PICKER ===== */
+/* EMOJI PICKER */
 #emoji-picker {
   margin-top: 6px;
   font-size: 1.1rem;
@@ -378,12 +555,12 @@ body {
   margin-right: 4px;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 800px) {
+/* RESPONSIVE */
+@media (max-width: 900px) {
   #sidebar {
     display: none;
   }
-  body {
+  #app {
     flex-direction: column;
   }
   #main {
@@ -392,202 +569,273 @@ body {
   .grid-2, .grid-3 {
     grid-template-columns: minmax(0, 1fr);
   }
+  #task-board {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ===== SIDEBAR ===== -->
-<div id="sidebar">
-  <div id="logo">Shadowtech<span>Dev</span></div>
-  <div id="subtitle">Developer control hub</div>
+<!-- LOGIN -->
+<div id="login-screen">
+  <div id="login-box">
+    <h1>Shadowtech Dev</h1>
+    <p>Local dev hub with login. Accounts stored in your browser only.</p>
 
-  <div class="sidebar-section-title">Main</div>
-  <button class="sidebar-btn active" data-page="home">
-    <span class="icon">🏠</span> Home
-  </button>
-  <button class="sidebar-btn" data-page="forum">
-    <span class="icon">💬</span> Forum
-  </button>
-  <button class="sidebar-btn" data-page="wiki">
-    <span class="icon">📘</span> Wiki
-  </button>
+    <div id="login-tabs">
+      <div class="login-tab active" data-mode="login">Login</div>
+      <div class="login-tab" data-mode="register">Register</div>
+    </div>
 
-  <div class="sidebar-section-title">Dev</div>
-  <button class="sidebar-btn" data-page="changelog">
-    <span class="icon">📜</span> Changelog
-  </button>
-  <button class="sidebar-btn" data-page="snippets">
-    <span class="icon">💻</span> Snippets
-  </button>
-
-  <div class="sidebar-section-title">User</div>
-  <button class="sidebar-btn" data-page="profile">
-    <span class="icon">👤</span> Profile
-  </button>
-  <button class="sidebar-btn" data-page="settings">
-    <span class="icon">⚙️</span> Settings
-  </button>
-
-  <div id="sidebar-footer">
-    Shadowtech Dev Hub<br>
-    <span id="footer-year"></span>
+    <div id="login-forms">
+      <input id="login-username" placeholder="Username">
+      <input id="login-password" type="password" placeholder="Password">
+      <div id="login-error"></div>
+      <button class="btn" onclick="handleAuth()">Continue</button>
+    </div>
   </div>
 </div>
 
-<!-- ===== MAIN ===== -->
-<div id="main">
+<!-- APP -->
+<div id="app" style="display:none;">
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+    <div id="logo">Shadowtech<span>Dev</span></div>
+    <div id="subtitle">Developer control hub</div>
 
-  <!-- HOME -->
-  <div id="page-home" class="page active">
-    <div class="page-header">
-      <div>
-        <h1>Shadowtech Dev Hub</h1>
-        <p>Central place for your dev notes, forum, wiki, and tools.</p>
-      </div>
-    </div>
+    <div class="sidebar-section-title">Main</div>
+    <button class="sidebar-btn active" data-page="home">
+      <span class="icon">🏠</span> Home
+    </button>
+    <button class="sidebar-btn" data-page="forum">
+      <span class="icon">💬</span> Forum
+    </button>
+    <button class="sidebar-btn" data-page="wiki">
+      <span class="icon">📘</span> Wiki
+    </button>
+    <button class="sidebar-btn" data-page="tasks">
+      <span class="icon">📋</span> Tasks
+    </button>
 
-    <div class="grid grid-3">
-      <div class="card">
-        <h2>Forum</h2>
-        <small>Post updates, ideas, bugs, or notes.</small>
-        <p>Use the forum to log progress, brainstorm features, or track issues.</p>
-        <button class="btn small" onclick="goTo('forum')">Open Forum</button>
-      </div>
-      <div class="card">
-        <h2>Wiki</h2>
-        <small>Document your systems.</small>
-        <p>Keep a structured knowledge base for commands, flows, and architecture.</p>
-        <button class="btn small" onclick="goTo('wiki')">Open Wiki</button>
-      </div>
-      <div class="card">
-        <h2>Dev Area</h2>
-        <small>Changelog & snippets.</small>
-        <p>Track what changed and store useful code snippets in one place.</p>
-        <button class="btn small" onclick="goTo('changelog')">View Dev Pages</button>
-      </div>
-    </div>
-  </div>
+    <div class="sidebar-section-title">Dev</div>
+    <button class="sidebar-btn" data-page="changelog">
+      <span class="icon">📜</span> Changelog
+    </button>
+    <button class="sidebar-btn" data-page="snippets">
+      <span class="icon">💻</span> Snippets
+    </button>
 
-  <!-- FORUM -->
-  <div id="page-forum" class="page">
-    <div class="page-header">
-      <div>
-        <h1>Forum</h1>
-        <p>Post messages, reply, and keep a dev log. Stored locally in your browser.</p>
-      </div>
-      <div>
-        <button class="btn small" onclick="openModal('post')">New Post</button>
-      </div>
-    </div>
+    <div class="sidebar-section-title">User</div>
+    <button class="sidebar-btn" data-page="profile">
+      <span class="icon">👤</span> Profile
+    </button>
+    <button class="sidebar-btn" data-page="settings">
+      <span class="icon">⚙️</span> Settings
+    </button>
 
-    <div id="forum-actions">
-      <button class="btn small secondary" onclick="clearForum()">Clear All Posts</button>
-    </div>
-
-    <div id="forum-posts"></div>
-  </div>
-
-  <!-- WIKI -->
-  <div id="page-wiki" class="page">
-    <div class="page-header">
-      <div>
-        <h1>Wiki</h1>
-        <p>Quick reference for your Shadowtech Dev ecosystem.</p>
-      </div>
-    </div>
-
-    <div id="wiki-layout">
-      <div id="wiki-sidebar">
-        <h3>Topics</h3>
-        <div id="wiki-topics"></div>
-      </div>
-      <div id="wiki-content">
-        <!-- Filled by JS -->
-      </div>
+    <div id="sidebar-footer">
+      Shadowtech Dev Hub<br>
+      <span id="footer-year"></span>
     </div>
   </div>
 
-  <!-- CHANGELOG -->
-  <div id="page-changelog" class="page">
-    <div class="page-header">
-      <div>
-        <h1>Changelog</h1>
-        <p>Track what you change over time.</p>
+  <!-- MAIN WRAPPER -->
+  <div id="main-wrapper">
+    <!-- TOPBAR -->
+    <div id="topbar">
+      <div id="topbar-left">
+        <span id="topbar-page-label">Home</span>
       </div>
-      <div>
-        <button class="btn small" onclick="openModal('changelog')">Add Entry</button>
-      </div>
-    </div>
-
-    <div id="changelog-list" class="grid"></div>
-  </div>
-
-  <!-- SNIPPETS -->
-  <div id="page-snippets" class="page">
-    <div class="page-header">
-      <div>
-        <h1>Snippets</h1>
-        <p>Store useful code or command examples.</p>
-      </div>
-      <div>
-        <button class="btn small" onclick="openModal('snippet')">Add Snippet</button>
-      </div>
-    </div>
-
-    <div id="snippets-list" class="grid"></div>
-  </div>
-
-  <!-- PROFILE -->
-  <div id="page-profile" class="page">
-    <div class="page-header">
-      <div>
-        <h1>Profile</h1>
-        <p>Local profile for this hub.</p>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="profile-row">
-        <div class="avatar" id="avatar-initials">SD</div>
-        <div>
-          <div><strong id="profile-name">Guest</strong></div>
-          <small id="profile-tagline">Shadowtech Dev user</small>
+      <div id="topbar-right">
+        <div id="notif-dot"></div>
+        <div id="topbar-user">
+          <div id="topbar-avatar">SD</div>
+          <span id="topbar-name">Guest</span>
+          <button class="btn small secondary" onclick="logout()">Logout</button>
         </div>
       </div>
-      <div style="margin-top:10px;">
-        <button class="btn small" onclick="changeProfile()">Edit Profile</button>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main">
+      <!-- HOME -->
+      <div id="page-home" class="page active">
+        <div class="page-header">
+          <div>
+            <h1>Shadowtech Dev Hub</h1>
+            <p>Central place for your dev notes, forum, wiki, tasks, and tools.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-3">
+          <div class="card">
+            <h2>Forum</h2>
+            <small>Post updates, ideas, bugs, or notes.</small>
+            <p>Use the forum to log progress, brainstorm features, or track issues.</p>
+            <button class="btn small" onclick="goTo('forum')">Open Forum</button>
+          </div>
+          <div class="card">
+            <h2>Wiki</h2>
+            <small>Document your systems.</small>
+            <p>Keep a structured knowledge base for commands, flows, and architecture.</p>
+            <button class="btn small" onclick="goTo('wiki')">Open Wiki</button>
+          </div>
+          <div class="card">
+            <h2>Tasks</h2>
+            <small>Track what you’re working on.</small>
+            <p>Use the task board to move items from To‑Do to Done.</p>
+            <button class="btn small" onclick="goTo('tasks')">Open Tasks</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORUM -->
+      <div id="page-forum" class="page">
+        <div class="page-header">
+          <div>
+            <h1>Forum</h1>
+            <p>Post messages, reply, and keep a dev log. Stored locally per user.</p>
+          </div>
+          <div>
+            <button class="btn small" onclick="openModal('post')">New Post</button>
+          </div>
+        </div>
+
+        <div id="forum-actions">
+          <button class="btn small secondary" onclick="clearForum()">Clear All Posts</button>
+        </div>
+
+        <div id="forum-posts"></div>
+      </div>
+
+      <!-- WIKI -->
+      <div id="page-wiki" class="page">
+        <div class="page-header">
+          <div>
+            <h1>Wiki</h1>
+            <p>Quick reference for your Shadowtech Dev ecosystem.</p>
+          </div>
+        </div>
+
+        <div id="wiki-layout">
+          <div id="wiki-sidebar">
+            <h3>Topics</h3>
+            <div id="wiki-topics"></div>
+          </div>
+          <div id="wiki-content"></div>
+        </div>
+      </div>
+
+      <!-- TASKS -->
+      <div id="page-tasks" class="page">
+        <div class="page-header">
+          <div>
+            <h1>Tasks</h1>
+            <p>Simple board: To‑Do, In Progress, Done.</p>
+          </div>
+          <div>
+            <button class="btn small" onclick="openModal('task')">New Task</button>
+          </div>
+        </div>
+
+        <div id="task-board">
+          <div class="task-column">
+            <h3>To‑Do</h3>
+            <div id="tasks-todo"></div>
+          </div>
+          <div class="task-column">
+            <h3>In Progress</h3>
+            <div id="tasks-progress"></div>
+          </div>
+          <div class="task-column">
+            <h3>Done</h3>
+            <div id="tasks-done"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHANGELOG -->
+      <div id="page-changelog" class="page">
+        <div class="page-header">
+          <div>
+            <h1>Changelog</h1>
+            <p>Track what you change over time.</p>
+          </div>
+          <div>
+            <button class="btn small" onclick="openModal('changelog')">Add Entry</button>
+          </div>
+        </div>
+
+        <div id="changelog-list" class="grid"></div>
+      </div>
+
+      <!-- SNIPPETS -->
+      <div id="page-snippets" class="page">
+        <div class="page-header">
+          <div>
+            <h1>Snippets</h1>
+            <p>Store useful code or command examples.</p>
+          </div>
+          <div>
+            <button class="btn small" onclick="openModal('snippet')">Add Snippet</button>
+          </div>
+        </div>
+
+        <div id="snippets-list" class="grid"></div>
+      </div>
+
+      <!-- PROFILE -->
+      <div id="page-profile" class="page">
+        <div class="page-header">
+          <div>
+            <h1>Profile</h1>
+            <p>Local profile for this hub.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="profile-row">
+            <div class="avatar" id="avatar-initials">SD</div>
+            <div>
+              <div><strong id="profile-name">Guest</strong></div>
+              <small id="profile-tagline">Shadowtech Dev user</small>
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <button class="btn small" onclick="changeProfile()">Edit Profile</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div id="page-settings" class="page">
+        <div class="page-header">
+          <div>
+            <h1>Settings</h1>
+            <p>Local settings for this hub.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <h2>Theme</h2>
+            <p>Toggle between default and high‑contrast mode.</p>
+            <button class="btn small" onclick="toggleTheme()">Toggle Theme</button>
+          </div>
+          <div class="card">
+            <h2>Data</h2>
+            <p>Clear all saved local data for this user (forum, profile, changelog, snippets, tasks).</p>
+            <button class="btn small danger" onclick="clearAllData()">Clear All Local Data</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
-  <!-- SETTINGS -->
-  <div id="page-settings" class="page">
-    <div class="page-header">
-      <div>
-        <h1>Settings</h1>
-        <p>Local settings for this hub.</p>
-      </div>
-    </div>
-
-    <div class="grid grid-2">
-      <div class="card">
-        <h2>Theme</h2>
-        <p>Toggle between default and high‑contrast mode.</p>
-        <button class="btn small" onclick="toggleTheme()">Toggle Theme</button>
-      </div>
-      <div class="card">
-        <h2>Data</h2>
-        <p>Clear all saved local data (forum, profile, changelog, snippets).</p>
-        <button class="btn small danger" onclick="clearAllData()">Clear All Local Data</button>
-      </div>
-    </div>
-  </div>
-
 </div>
 
-<!-- ===== MODAL ===== -->
+<!-- MODAL -->
 <div id="modal-bg">
   <div id="modal">
     <h3 id="modal-title">Modal</h3>
@@ -600,19 +848,124 @@ body {
 </div>
 
 <script>
-/* ===== UTIL ===== */
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
 
 document.getElementById('footer-year').textContent = new Date().getFullYear();
 
-/* ===== NAVIGATION ===== */
-$$('.sidebar-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const page = btn.getAttribute('data-page');
-    goTo(page);
+/* ===== AUTH SYSTEM (LOCAL) ===== */
+let authMode = 'login'; // 'login' or 'register'
+let currentUser = null; // { username, profile, data keys }
+
+function getUsers() {
+  return JSON.parse(localStorage.getItem('shadowtech_users') || '{}');
+}
+
+function saveUsers(users) {
+  localStorage.setItem('shadowtech_users', JSON.stringify(users));
+}
+
+// super simple hash (not secure, just obfuscation)
+function hashPassword(pw) {
+  let h = 0;
+  for (let i = 0; i < pw.length; i++) {
+    h = (h * 31 + pw.charCodeAt(i)) >>> 0;
+  }
+  return h.toString(16);
+}
+
+function setAuthMode(mode) {
+  authMode = mode;
+  $$('#login-tabs .login-tab').forEach(tab => {
+    tab.classList.toggle('active', tab.getAttribute('data-mode') === mode);
+  });
+  $('#login-error').textContent = '';
+  $('#login-password').value = '';
+}
+
+$$('#login-tabs .login-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    setAuthMode(tab.getAttribute('data-mode'));
   });
 });
+
+function handleAuth() {
+  const username = $('#login-username').value.trim();
+  const password = $('#login-password').value.trim();
+  const errorEl = $('#login-error');
+
+  if (!username || !password) {
+    errorEl.textContent = 'Enter username and password.';
+    return;
+  }
+
+  const users = getUsers();
+
+  if (authMode === 'register') {
+    if (users[username]) {
+      errorEl.textContent = 'Username already exists.';
+      return;
+    }
+    users[username] = {
+      passwordHash: hashPassword(password),
+      profile: {
+        name: username,
+        tagline: 'Shadowtech Dev user'
+      }
+    };
+    saveUsers(users);
+    errorEl.textContent = 'Account created. You can log in now.';
+    setAuthMode('login');
+    return;
+  }
+
+  // login
+  if (!users[username]) {
+    errorEl.textContent = 'User not found.';
+    return;
+  }
+  if (users[username].passwordHash !== hashPassword(password)) {
+    errorEl.textContent = 'Incorrect password.';
+    return;
+  }
+
+  currentUser = username;
+  localStorage.setItem('shadowtech_current_user', username);
+  $('#login-screen').style.display = 'none';
+  $('#app').style.display = 'flex';
+  initApp();
+}
+
+function logout() {
+  currentUser = null;
+  localStorage.removeItem('shadowtech_current_user');
+  $('#app').style.display = 'none';
+  $('#login-screen').style.display = 'flex';
+  $('#login-password').value = '';
+  $('#login-error').textContent = '';
+}
+
+/* Auto-login if user exists */
+(function autoLogin() {
+  const savedUser = localStorage.getItem('shadowtech_current_user');
+  const users = getUsers();
+  if (savedUser && users[savedUser]) {
+    currentUser = savedUser;
+    $('#login-screen').style.display = 'none';
+    $('#app').style.display = 'flex';
+    initApp();
+  }
+})();
+
+/* ===== NAVIGATION ===== */
+function initNav() {
+  $$('.sidebar-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const page = btn.getAttribute('data-page');
+      goTo(page);
+    });
+  });
+}
 
 function goTo(page) {
   $$('.sidebar-btn').forEach(b => b.classList.remove('active'));
@@ -622,6 +975,47 @@ function goTo(page) {
   $$('.page').forEach(p => p.classList.remove('active'));
   const pageDiv = document.getElementById('page-' + page);
   if (pageDiv) pageDiv.classList.add('active');
+
+  $('#topbar-page-label').textContent = page.charAt(0).toUpperCase() + page.slice(1);
+}
+
+/* ===== PROFILE / TOPBAR ===== */
+let profile = { name: 'Guest', tagline: 'Shadowtech Dev user' };
+
+function loadProfile() {
+  const users = getUsers();
+  if (currentUser && users[currentUser] && users[currentUser].profile) {
+    profile = users[currentUser].profile;
+  } else {
+    profile = { name: currentUser || 'Guest', tagline: 'Shadowtech Dev user' };
+  }
+}
+
+function saveProfile() {
+  const users = getUsers();
+  if (!currentUser) return;
+  if (!users[currentUser]) return;
+  users[currentUser].profile = profile;
+  saveUsers(users);
+}
+
+function renderProfile() {
+  $('#profile-name').textContent = profile.name;
+  $('#profile-tagline').textContent = profile.tagline;
+  const initials = profile.name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+  $('#avatar-initials').textContent = initials || 'SD';
+  $('#topbar-name').textContent = profile.name;
+  $('#topbar-avatar').textContent = initials || 'SD';
+}
+
+function changeProfile() {
+  const name = prompt('Enter display name:', profile.name);
+  if (!name) return;
+  const tagline = prompt('Enter tagline:', profile.tagline);
+  profile.name = name;
+  profile.tagline = tagline || profile.tagline;
+  saveProfile();
+  renderProfile();
 }
 
 /* ===== MODAL ===== */
@@ -666,6 +1060,16 @@ function openModal(mode, extra = null) {
       <input id="snip-title" placeholder="Snippet title">
       <textarea id="snip-body" rows="4" placeholder="Code or commands..."></textarea>
     `;
+  } else if (mode === 'task') {
+    title.textContent = 'New Task';
+    body.innerHTML = `
+      <input id="task-title" placeholder="Task title">
+      <select id="task-column">
+        <option value="todo">To‑Do</option>
+        <option value="progress">In Progress</option>
+        <option value="done">Done</option>
+      </select>
+    `;
   }
 
   $('#modal-confirm').onclick = handleModalConfirm;
@@ -689,11 +1093,20 @@ function setupEmojiPicker(targetId) {
   });
 }
 
+/* ===== PER-USER STORAGE KEYS ===== */
+function keyFor(name) {
+  return `shadowtech_${currentUser || 'guest'}_${name}`;
+}
+
 /* ===== FORUM DATA ===== */
-let forumPosts = JSON.parse(localStorage.getItem('shadowtech_forum') || '[]');
+let forumPosts = [];
+
+function loadForum() {
+  forumPosts = JSON.parse(localStorage.getItem(keyFor('forum')) || '[]');
+}
 
 function saveForum() {
-  localStorage.setItem('shadowtech_forum', JSON.stringify(forumPosts));
+  localStorage.setItem(keyFor('forum'), JSON.stringify(forumPosts));
 }
 
 function renderForum() {
@@ -754,10 +1167,14 @@ function clearForum() {
 }
 
 /* ===== CHANGELOG DATA ===== */
-let changelog = JSON.parse(localStorage.getItem('shadowtech_changelog') || '[]');
+let changelog = [];
+
+function loadChangelog() {
+  changelog = JSON.parse(localStorage.getItem(keyFor('changelog')) || '[]');
+}
 
 function saveChangelog() {
-  localStorage.setItem('shadowtech_changelog', JSON.stringify(changelog));
+  localStorage.setItem(keyFor('changelog'), JSON.stringify(changelog));
 }
 
 function renderChangelog() {
@@ -780,10 +1197,14 @@ function renderChangelog() {
 }
 
 /* ===== SNIPPETS DATA ===== */
-let snippets = JSON.parse(localStorage.getItem('shadowtech_snippets') || '[]');
+let snippets = [];
+
+function loadSnippets() {
+  snippets = JSON.parse(localStorage.getItem(keyFor('snippets')) || '[]');
+}
 
 function saveSnippets() {
-  localStorage.setItem('shadowtech_snippets', JSON.stringify(snippets));
+  localStorage.setItem(keyFor('snippets'), JSON.stringify(snippets));
 }
 
 function renderSnippets() {
@@ -805,17 +1226,89 @@ function renderSnippets() {
   });
 }
 
-/* ===== WIKI DATA ===== */
+/* ===== TASKS DATA ===== */
+let tasks = { todo: [], progress: [], done: [] };
+
+function loadTasks() {
+  tasks = JSON.parse(localStorage.getItem(keyFor('tasks')) || '{"todo":[],"progress":[],"done":[]}');
+}
+
+function saveTasks() {
+  localStorage.setItem(keyFor('tasks'), JSON.stringify(tasks));
+}
+
+function renderTasks() {
+  const todo = $('#tasks-todo');
+  const prog = $('#tasks-progress');
+  const done = $('#tasks-done');
+  todo.innerHTML = '';
+  prog.innerHTML = '';
+  done.innerHTML = '';
+
+  tasks.todo.forEach((t, i) => {
+    todo.innerHTML += `
+      <div class="task-item">
+        <span>${t}</span>
+        <div>
+          <button class="btn small secondary" onclick="moveTask('todo','progress',${i})">▶</button>
+          <button class="btn small danger" onclick="deleteTask('todo',${i})">✕</button>
+        </div>
+      </div>
+    `;
+  });
+
+  tasks.progress.forEach((t, i) => {
+    prog.innerHTML += `
+      <div class="task-item">
+        <span>${t}</span>
+        <div>
+          <button class="btn small secondary" onclick="moveTask('progress','done',${i})">✔</button>
+          <button class="btn small secondary" onclick="moveTask('progress','todo',${i})">◀</button>
+          <button class="btn small danger" onclick="deleteTask('progress',${i})">✕</button>
+        </div>
+      </div>
+    `;
+  });
+
+  tasks.done.forEach((t, i) => {
+    done.innerHTML += `
+      <div class="task-item">
+        <span>${t}</span>
+        <div>
+          <button class="btn small secondary" onclick="moveTask('done','progress',${i})">◀</button>
+          <button class="btn small danger" onclick="deleteTask('done',${i})">✕</button>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function moveTask(from, to, index) {
+  const item = tasks[from][index];
+  tasks[from].splice(index, 1);
+  tasks[to].push(item);
+  saveTasks();
+  renderTasks();
+}
+
+function deleteTask(col, index) {
+  tasks[col].splice(index, 1);
+  saveTasks();
+  renderTasks();
+}
+
+/* ===== WIKI DATA (STATIC) ===== */
 const wikiData = [
   {
     id: 'overview',
     title: 'Overview',
     body: `
-      <p>Shadowtech Dev Hub is your local control center for notes, forum posts, wiki entries, and dev tools.</p>
+      <p>Shadowtech Dev Hub is your local control center for notes, forum posts, wiki entries, tasks, and dev tools.</p>
       <ul>
         <li>Use the <strong>Forum</strong> to log progress and ideas.</li>
         <li>Use the <strong>Wiki</strong> to document systems.</li>
         <li>Use <strong>Changelog</strong> and <strong>Snippets</strong> for dev work.</li>
+        <li>Use <strong>Tasks</strong> to track what you’re doing.</li>
       </ul>
     `
   },
@@ -873,32 +1366,13 @@ function selectWiki(id) {
   $('#wiki-content').innerHTML = `<h2>${topic.title}</h2>${topic.body}`;
 }
 
-/* ===== PROFILE ===== */
-let profile = JSON.parse(localStorage.getItem('shadowtech_profile') || '{"name":"Guest","tagline":"Shadowtech Dev user"}');
+/* ===== SETTINGS / THEME ===== */
+let highContrast = false;
 
-function saveProfile() {
-  localStorage.setItem('shadowtech_profile', JSON.stringify(profile));
+function loadTheme() {
+  highContrast = JSON.parse(localStorage.getItem(keyFor('theme_hc')) || 'false');
+  applyTheme();
 }
-
-function renderProfile() {
-  $('#profile-name').textContent = profile.name;
-  $('#profile-tagline').textContent = profile.tagline;
-  const initials = profile.name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
-  $('#avatar-initials').textContent = initials || 'SD';
-}
-
-function changeProfile() {
-  const name = prompt('Enter display name:', profile.name);
-  if (!name) return;
-  const tagline = prompt('Enter tagline:', profile.tagline);
-  profile.name = name;
-  profile.tagline = tagline || profile.tagline;
-  saveProfile();
-  renderProfile();
-}
-
-/* ===== SETTINGS ===== */
-let highContrast = JSON.parse(localStorage.getItem('shadowtech_theme_hc') || 'false');
 
 function applyTheme() {
   if (highContrast) {
@@ -910,27 +1384,24 @@ function applyTheme() {
 
 function toggleTheme() {
   highContrast = !highContrast;
-  localStorage.setItem('shadowtech_theme_hc', JSON.stringify(highContrast));
+  localStorage.setItem(keyFor('theme_hc'), JSON.stringify(highContrast));
   applyTheme();
 }
 
+/* ===== CLEAR ALL DATA FOR USER ===== */
 function clearAllData() {
-  if (!confirm('Clear all local data? This cannot be undone.')) return;
-  localStorage.removeItem('shadowtech_forum');
-  localStorage.removeItem('shadowtech_changelog');
-  localStorage.removeItem('shadowtech_snippets');
-  localStorage.removeItem('shadowtech_profile');
-  localStorage.removeItem('shadowtech_theme_hc');
-  forumPosts = [];
-  changelog = [];
-  snippets = [];
-  profile = { name: 'Guest', tagline: 'Shadowtech Dev user' };
-  renderForum();
-  renderChangelog();
-  renderSnippets();
-  renderProfile();
-  highContrast = false;
-  applyTheme();
+  if (!confirm('Clear all local data for this user? This cannot be undone.')) return;
+  localStorage.removeItem(keyFor('forum'));
+  localStorage.removeItem(keyFor('changelog'));
+  localStorage.removeItem(keyFor('snippets'));
+  localStorage.removeItem(keyFor('tasks'));
+  localStorage.removeItem(keyFor('theme_hc'));
+  // profile stays (account-level)
+  loadForum(); renderForum();
+  loadChangelog(); renderChangelog();
+  loadSnippets(); renderSnippets();
+  loadTasks(); renderTasks();
+  loadTheme();
 }
 
 /* ===== MODAL CONFIRM HANDLER ===== */
@@ -942,7 +1413,7 @@ function handleModalConfirm() {
     forumPosts.push({
       title,
       body,
-      author: profile.name || 'Guest',
+      author: profile.name || currentUser || 'Guest',
       date: new Date().toLocaleString(),
       replies: []
     });
@@ -956,7 +1427,7 @@ function handleModalConfirm() {
       forumPosts[idx].replies = forumPosts[idx].replies || [];
       forumPosts[idx].replies.push({
         body,
-        author: profile.name || 'Guest',
+        author: profile.name || currentUser || 'Guest',
         date: new Date().toLocaleString()
       });
       saveForum();
@@ -984,18 +1455,37 @@ function handleModalConfirm() {
     });
     saveSnippets();
     renderSnippets();
+  } else if (modalMode === 'task') {
+    const title = $('#task-title').value.trim();
+    const col = $('#task-column').value;
+    if (!title) return;
+    tasks[col].push(title);
+    saveTasks();
+    renderTasks();
   }
 
   closeModal();
 }
 
-/* ===== INIT ===== */
-renderForum();
-renderChangelog();
-renderSnippets();
-renderWikiTopics();
-renderProfile();
-applyTheme();
+/* ===== INIT APP AFTER LOGIN ===== */
+function initApp() {
+  loadProfile();
+  renderProfile();
+  renderTopbarProfile();
+  initNav();
+  loadForum(); renderForum();
+  loadChangelog(); renderChangelog();
+  loadSnippets(); renderSnippets();
+  loadTasks(); renderTasks();
+  renderWikiTopics();
+  loadTheme();
+}
+
+function renderTopbarProfile() {
+  const initials = profile.name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+  $('#topbar-name').textContent = profile.name;
+  $('#topbar-avatar').textContent = initials || 'SD';
+}
 </script>
 
 </body>
