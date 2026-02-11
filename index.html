@@ -2,22 +2,24 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Shadowtube</title>
+<title>Shadow Market</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 :root {
-  --bg: #05060a;
-  --bg-alt: #0b0e18;
-  --panel: #141827;
-  --panel-soft: #101321;
-  --accent: #ff4b81;
-  --accent-soft: rgba(255, 75, 129, 0.18);
+  --bg: #020308;
+  --bg-alt: #050814;
+  --panel: #0c1020;
+  --panel-soft: #090c18;
+  --accent: #7b5cff;
+  --accent-soft: rgba(123, 92, 255, 0.2);
+  --accent-strong: #c45bff;
+  --danger: #ff4b81;
   --text: #f5f7ff;
-  --muted: #9aa0c2;
-  --border: #22263a;
+  --muted: #8f96c2;
+  --border: #1c2136;
   --radius: 8px;
-  --shadow: 0 0 25px rgba(0,0,0,0.6);
+  --shadow: 0 0 25px rgba(0,0,0,0.7);
   --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
@@ -30,7 +32,7 @@
 body {
   margin: 0;
   font-family: var(--font);
-  background: radial-gradient(circle at top, #151a33 0, #05060a 55%);
+  background: radial-gradient(circle at top, #171b33 0, #020308 55%);
   color: var(--text);
   height: 100vh;
 }
@@ -38,122 +40,44 @@ body {
 /* LAYOUT */
 #app {
   display: flex;
-  flex-direction: column;
   height: 100vh;
-}
-
-/* TOPBAR */
-#topbar {
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 14px;
-  border-bottom: 1px solid var(--border);
-  background: rgba(5,6,10,0.95);
-  backdrop-filter: blur(10px);
-}
-
-#logo {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-}
-
-#logo span.mark {
-  width: 20px;
-  height: 20px;
-  border-radius: 4px;
-  background: var(--accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-}
-
-#logo span.text {
-  color: #fff;
-}
-
-#logo span.text strong {
-  color: var(--accent);
-}
-
-#search-bar {
-  flex: 1;
-  max-width: 520px;
-  margin: 0 16px;
-  display: flex;
-}
-
-#search-input {
-  flex: 1;
-  padding: 7px 10px;
-  border-radius: 999px 0 0 999px;
-  border: 1px solid var(--border);
-  background: #05060f;
-  color: var(--text);
-  font-size: 0.85rem;
-}
-
-#search-btn {
-  padding: 7px 12px;
-  border-radius: 0 999px 999px 0;
-  border: 1px solid var(--border);
-  border-left: none;
-  background: var(--panel-soft);
-  color: var(--muted);
-  cursor: pointer;
-  font-size: 0.85rem;
-}
-
-#topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.8rem;
-}
-
-#upload-btn {
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--accent-soft);
-  background: transparent;
-  color: var(--accent);
-  cursor: pointer;
-  font-size: 0.8rem;
-}
-
-#user-avatar {
-  width: 26px;
-  height: 26px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--accent), #ff9fbf);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75rem;
-  font-weight: 700;
-}
-
-/* MAIN AREA */
-#main {
-  flex: 1;
-  display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
   overflow: hidden;
 }
 
 /* SIDEBAR */
 #sidebar {
-  background: linear-gradient(180deg, var(--bg-alt), #05060a);
+  width: 260px;
+  background: linear-gradient(180deg, var(--bg-alt), #020308);
   border-right: 1px solid var(--border);
-  padding: 10px;
-  font-size: 0.85rem;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow);
+}
+
+#sidebar-header {
+  margin-bottom: 14px;
+}
+
+#brand {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+#brand span.mark {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: var(--accent);
+  margin-right: 4px;
+  font-size: 0.7rem;
+}
+
+#brand-sub {
+  font-size: 0.75rem;
+  color: var(--muted);
 }
 
 .sidebar-section-title {
@@ -164,8 +88,7 @@ body {
 }
 
 .sidebar-btn {
-  width: 100%;
-  padding: 7px 8px;
+  padding: 7px 9px;
   margin-bottom: 4px;
   background: transparent;
   border-radius: 6px;
@@ -180,7 +103,7 @@ body {
 }
 
 .sidebar-btn span.icon {
-  width: 18px;
+  width: 20px;
   text-align: center;
 }
 
@@ -192,13 +115,81 @@ body {
 .sidebar-btn.active {
   background: var(--accent);
   color: #fff;
+  border-color: var(--accent-strong);
 }
 
-/* CONTENT */
-#content {
-  background: transparent;
-  padding: 12px 14px;
+#sidebar-footer {
+  margin-top: auto;
+  font-size: 0.7rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+}
+
+/* MAIN WRAPPER */
+#main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* TOPBAR */
+#topbar {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(2,3,8,0.95);
+  backdrop-filter: blur(10px);
+}
+
+#topbar-left {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+#topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+}
+
+#status-pill {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+#user-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#user-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+/* MAIN CONTENT */
+#main {
+  flex: 1;
+  padding: 14px 16px;
   overflow-y: auto;
+  position: relative;
 }
 
 /* PAGES */
@@ -210,181 +201,334 @@ body {
   display: block;
 }
 
-/* HOME GRID */
-#home-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 12px;
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
-.video-card {
-  background: var(--panel);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  cursor: pointer;
+.page-header h1 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.page-header p {
+  margin: 4px 0 0;
   font-size: 0.85rem;
-}
-
-.video-thumb {
-  height: 120px;
-  background: radial-gradient(circle at top, #2b314f, #05060a);
-  position: relative;
-}
-
-.video-thumb::after {
-  content: "▶";
-  position: absolute;
-  right: 8px;
-  bottom: 6px;
-  font-size: 0.8rem;
-  background: rgba(0,0,0,0.6);
-  padding: 2px 6px;
-  border-radius: 999px;
-}
-
-.video-info {
-  padding: 8px 9px;
-}
-
-.video-title {
-  font-weight: 600;
-  margin-bottom: 2px;
-}
-
-.video-meta {
-  font-size: 0.75rem;
   color: var(--muted);
 }
 
-/* WATCH PAGE */
-#watch-layout {
+/* GRID / CARDS */
+.grid {
   display: grid;
-  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.1fr);
   gap: 12px;
 }
 
-#watch-player {
+.grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.card {
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  box-shadow: var(--shadow);
+  font-size: 0.9rem;
+}
+
+.card h2 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+}
+
+.card small {
+  color: var(--muted);
+}
+
+/* BUTTONS */
+.btn {
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.btn.secondary {
+  background: transparent;
+  border-color: var(--accent-soft);
+  color: var(--text);
+}
+
+.btn.danger {
+  background: var(--danger);
+}
+
+.btn.small {
+  padding: 4px 8px;
+  font-size: 0.75rem;
+}
+
+.btn + .btn {
+  margin-left: 6px;
+}
+
+/* MARKETPLACE */
+.market-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 12px;
+}
+
+.market-filters {
   background: var(--panel);
   border-radius: var(--radius);
   border: 1px solid var(--border);
   padding: 10px;
+  font-size: 0.85rem;
 }
 
-#fake-video {
-  height: 220px;
-  border-radius: 6px;
-  background: radial-gradient(circle at top, #2b314f, #05060a);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.4rem;
-}
-
-#watch-title {
-  margin: 8px 0 2px;
-  font-size: 1rem;
-}
-
-#watch-meta {
+.market-filters label {
+  display: block;
+  margin-top: 6px;
+  margin-bottom: 2px;
   font-size: 0.8rem;
   color: var(--muted);
 }
 
-#watch-desc {
-  margin-top: 6px;
-  font-size: 0.85rem;
-}
-
-#watch-comments {
-  margin-top: 10px;
-}
-
-.comment {
-  margin-top: 6px;
+.market-filters select,
+.market-filters input {
+  width: 100%;
   padding: 6px 8px;
   border-radius: 6px;
-  background: var(--panel-soft);
   border: 1px solid var(--border);
-  font-size: 0.8rem;
-}
-
-.comment strong {
-  font-size: 0.8rem;
-}
-
-#comment-form {
-  margin-top: 8px;
-  display: flex;
-  gap: 6px;
-}
-
-#comment-input {
-  flex: 1;
-  padding: 6px 8px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: #05060f;
+  background: #020308;
   color: var(--text);
   font-size: 0.8rem;
 }
 
-/* UP NEXT */
-#upnext {
-  background: var(--panel);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  padding: 10px;
-  font-size: 0.85rem;
+.market-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 10px;
 }
 
-.upnext-item {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 8px;
+.item-card {
+  background: var(--panel-soft);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  padding: 8px;
+  font-size: 0.85rem;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.upnext-thumb {
-  width: 90px;
-  height: 52px;
-  border-radius: 4px;
-  background: radial-gradient(circle at top, #2b314f, #05060a);
+.item-tag {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
-.upnext-info {
-  flex: 1;
-  font-size: 0.8rem;
+.item-title {
+  font-weight: 600;
 }
 
-/* LIBRARY / HISTORY SIMPLE LISTS */
-.simple-list {
+.item-meta {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.item-price {
+  font-size: 0.85rem;
+  color: var(--accent-strong);
+}
+
+/* CART DRAWER */
+#cart-drawer {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 260px;
+  max-height: 60vh;
   background: var(--panel);
-  border-radius: var(--radius);
+  border-radius: 10px;
   border: 1px solid var(--border);
+  box-shadow: var(--shadow);
   padding: 10px;
   font-size: 0.85rem;
+  display: none;
+  flex-direction: column;
 }
 
-.simple-item {
-  padding: 6px 0;
+#cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#cart-items {
+  margin-top: 6px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.cart-item {
+  padding: 4px 0;
   border-bottom: 1px solid var(--border);
 }
 
-.simple-item:last-child {
+.cart-item:last-child {
   border-bottom: none;
 }
 
+#cart-footer {
+  margin-top: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* MESSAGES */
+.messages-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 12px;
+}
+
+.thread-list {
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 8px;
+  font-size: 0.85rem;
+}
+
+.thread-item {
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+
+.thread-item.active,
+.thread-item:hover {
+  background: var(--accent-soft);
+}
+
+.thread-main {
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 8px;
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#thread-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.msg-bubble {
+  margin-top: 6px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  max-width: 80%;
+  font-size: 0.8rem;
+}
+
+.msg-bubble.me {
+  margin-left: auto;
+  background: var(--accent-soft);
+}
+
+.msg-bubble.them {
+  background: var(--panel-soft);
+}
+
+#msg-form {
+  margin-top: 6px;
+  display: flex;
+  gap: 6px;
+}
+
+#msg-input {
+  flex: 1;
+  padding: 6px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #020308;
+  color: var(--text);
+  font-size: 0.8rem;
+}
+
+/* ORDERS */
+.order-item {
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: var(--panel-soft);
+  border: 1px solid var(--border);
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+}
+
+/* PROFILE */
+.profile-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 12px;
+}
+
+.profile-card label {
+  display: block;
+  margin-top: 6px;
+  margin-bottom: 2px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.profile-card input,
+.profile-card textarea {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #020308;
+  color: var(--text);
+  font-size: 0.85rem;
+}
+
+.profile-card textarea {
+  resize: vertical;
+}
+
 /* RESPONSIVE */
-@media (max-width: 900px) {
-  #main {
-    grid-template-columns: minmax(0, 1fr);
-  }
+@media (max-width: 1000px) {
   #sidebar {
     display: none;
   }
-  #watch-layout {
+  #app {
+    flex-direction: column;
+  }
+  #main {
+    padding: 10px;
+  }
+  .market-layout,
+  .messages-layout,
+  .profile-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 }
@@ -393,113 +537,241 @@ body {
 <body>
 
 <div id="app">
-  <!-- TOPBAR -->
-  <div id="topbar">
-    <div id="logo">
-      <span class="mark">▶</span>
-      <span class="text"><strong>Shadow</strong>tube</span>
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+    <div id="sidebar-header">
+      <div id="brand"><span class="mark">SM</span>SHADOW MARKET</div>
+      <div id="brand-sub">Fictional dark marketplace UI</div>
     </div>
-    <div id="search-bar">
-      <input id="search-input" placeholder="Search Shadowtube">
-      <button id="search-btn">Search</button>
-    </div>
-    <div id="topbar-right">
-      <button id="upload-btn">Upload</button>
-      <div id="user-avatar">ST</div>
+
+    <div class="sidebar-section-title">Main</div>
+    <button class="sidebar-btn active" data-page="dashboard">
+      <span class="icon">🏠</span> Dashboard
+    </button>
+    <button class="sidebar-btn" data-page="market">
+      <span class="icon">🛒</span> Marketplace
+    </button>
+    <button class="sidebar-btn" data-page="messages">
+      <span class="icon">💬</span> Messages
+    </button>
+    <button class="sidebar-btn" data-page="orders">
+      <span class="icon">📦</span> Orders
+    </button>
+    <button class="sidebar-btn" data-page="profile">
+      <span class="icon">👤</span> Profile
+    </button>
+
+    <div class="sidebar-section-title">Admin</div>
+    <button class="sidebar-btn" data-page="admin">
+      <span class="icon">🛠</span> Admin Panel
+    </button>
+
+    <div id="sidebar-footer">
+      Shadow Market UI • Local only<br>
+      <span id="footer-year"></span>
     </div>
   </div>
 
-  <!-- MAIN -->
-  <div id="main">
-    <!-- SIDEBAR -->
-    <div id="sidebar">
-      <div class="sidebar-section-title">Main</div>
-      <button class="sidebar-btn active" data-page="home">
-        <span class="icon">🏠</span> Home
-      </button>
-      <button class="sidebar-btn" data-page="watch">
-        <span class="icon">▶</span> Watch
-      </button>
-      <button class="sidebar-btn" data-page="library">
-        <span class="icon">📚</span> Library
-      </button>
-      <button class="sidebar-btn" data-page="history">
-        <span class="icon">🕒</span> History
-      </button>
-
-      <div class="sidebar-section-title">Shadowtech</div>
-      <button class="sidebar-btn" data-page="dev">
-        <span class="icon">💻</span> Dev Panel
-      </button>
+  <!-- MAIN WRAPPER -->
+  <div id="main-wrapper">
+    <!-- TOPBAR -->
+    <div id="topbar">
+      <div id="topbar-left">
+        <span id="topbar-page-label">Dashboard</span> • Shadow layer: <strong>Local Sandbox</strong>
+      </div>
+      <div id="topbar-right">
+        <span id="status-pill">Offline / Mock</span>
+        <div id="user-pill">
+          <div id="user-avatar">ST</div>
+          <span>Owner</span>
+        </div>
+      </div>
     </div>
 
-    <!-- CONTENT -->
-    <div id="content">
-      <!-- HOME -->
-      <div id="page-home" class="page active">
-        <h2>Recommended on Shadowtube</h2>
-        <div id="home-grid"></div>
-      </div>
-
-      <!-- WATCH -->
-      <div id="page-watch" class="page">
-        <div id="watch-layout">
-          <div id="watch-player">
-            <div id="fake-video">▶</div>
-            <div id="watch-title">Select a video from Home</div>
-            <div id="watch-meta">0 views • Shadowtube</div>
-            <div id="watch-desc">Shadowtube — your Shadowtech themed video hub.</div>
-
-            <div id="watch-comments">
-              <h3 style="font-size:0.9rem; margin:8px 0;">Comments</h3>
-              <div id="comments-list"></div>
-              <div id="comment-form">
-                <input id="comment-input" placeholder="Add a comment...">
-                <button class="btn small" onclick="addComment()">Post</button>
-              </div>
-            </div>
+    <!-- MAIN CONTENT -->
+    <div id="main">
+      <!-- DASHBOARD -->
+      <div id="page-dashboard" class="page active">
+        <div class="page-header">
+          <div>
+            <h1>Dashboard</h1>
+            <p>Overview of your fictional Shadow Market activity.</p>
           </div>
-          <div id="upnext">
-            <h3 style="margin-top:0; font-size:0.9rem;">Up next</h3>
-            <div id="upnext-list"></div>
+        </div>
+
+        <div class="grid grid-3">
+          <div class="card">
+            <h2>Market Snapshot</h2>
+            <small>Fake stats, real vibes.</small>
+            <p style="margin-top:6px;">
+              Active listings: <strong id="stat-listings">0</strong><br>
+              Orders (local): <strong id="stat-orders">0</strong><br>
+              Threads: <strong id="stat-threads">0</strong>
+            </p>
+          </div>
+          <div class="card">
+            <h2>Quick Actions</h2>
+            <button class="btn small" onclick="goTo('market')">Browse Marketplace</button>
+            <button class="btn small secondary" onclick="goTo('messages')">Open Messages</button>
+            <button class="btn small secondary" onclick="goTo('orders')">View Orders</button>
+          </div>
+          <div class="card">
+            <h2>Disclaimer</h2>
+            <p style="font-size:0.8rem; color:var(--muted);">
+              This is a UI sandbox only. No real transactions, no real network calls, no real marketplace. Use it as a design playground.
+            </p>
           </div>
         </div>
       </div>
 
-      <!-- LIBRARY -->
-      <div id="page-library" class="page">
-        <h2>Your Library</h2>
-        <div class="simple-list" id="library-list"></div>
+      <!-- MARKETPLACE -->
+      <div id="page-market" class="page">
+        <div class="page-header">
+          <div>
+            <h1>Marketplace</h1>
+            <p>Browse fictional listings and add them to your local cart.</p>
+          </div>
+          <div>
+            <button class="btn small secondary" onclick="toggleCart()">Cart (<span id="cart-count">0</span>)</button>
+          </div>
+        </div>
+
+        <div class="market-layout">
+          <div class="market-filters">
+            <h3 style="margin-top:0; font-size:0.9rem;">Filters</h3>
+            <label for="filter-category">Category</label>
+            <select id="filter-category" onchange="renderMarket()">
+              <option value="all">All</option>
+              <option value="access">Access</option>
+              <option value="tools">Tools</option>
+              <option value="data">Data</option>
+              <option value="services">Services</option>
+            </select>
+
+            <label for="filter-sort">Sort by</label>
+            <select id="filter-sort" onchange="renderMarket()">
+              <option value="featured">Featured</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+            </select>
+
+            <label for="filter-search">Search</label>
+            <input id="filter-search" placeholder="Search titles..." oninput="renderMarket()">
+          </div>
+
+          <div class="market-grid" id="market-grid"></div>
+        </div>
       </div>
 
-      <!-- HISTORY -->
-      <div id="page-history" class="page">
-        <h2>Watch History</h2>
-        <div class="simple-list" id="history-list"></div>
+      <!-- MESSAGES -->
+      <div id="page-messages" class="page">
+        <div class="page-header">
+          <div>
+            <h1>Messages</h1>
+            <p>Fake encrypted threads with fictional vendors.</p>
+          </div>
+        </div>
+
+        <div class="messages-layout">
+          <div class="thread-list" id="thread-list"></div>
+          <div class="thread-main">
+            <div id="thread-header" style="font-size:0.85rem; color:var(--muted);">
+              Select a thread on the left.
+            </div>
+            <div id="thread-messages"></div>
+            <div id="msg-form">
+              <input id="msg-input" placeholder="Send a message..." disabled>
+              <button class="btn small" onclick="sendMessage()" disabled id="msg-send-btn">Send</button>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- DEV PANEL -->
-      <div id="page-dev" class="page">
-        <h2>Dev Panel</h2>
-        <div class="simple-list">
-          <div class="simple-item">
-            <strong>Shadowtube Mode:</strong> Local only, no real video hosting.
+      <!-- ORDERS -->
+      <div id="page-orders" class="page">
+        <div class="page-header">
+          <div>
+            <h1>Orders</h1>
+            <p>Local “orders” created when you checkout your cart.</p>
           </div>
-          <div class="simple-item">
-            <strong>Idea:</strong> Later you can swap fake data with real API calls.
+        </div>
+
+        <div id="orders-list"></div>
+      </div>
+
+      <!-- PROFILE -->
+      <div id="page-profile" class="page">
+        <div class="page-header">
+          <div>
+            <h1>Profile</h1>
+            <p>Local profile settings for this Shadow Market UI.</p>
           </div>
-          <div class="simple-item">
-            <strong>Storage:</strong> History and comments stored in <code>localStorage</code>.
+        </div>
+
+        <div class="profile-grid">
+          <div class="card profile-card">
+            <h2>Identity</h2>
+            <label for="profile-handle">Handle</label>
+            <input id="profile-handle" placeholder="ShadowOwner">
+
+            <label for="profile-bio">Bio</label>
+            <textarea id="profile-bio" rows="3" placeholder="Short description..."></textarea>
+
+            <label for="profile-theme">Theme Accent</label>
+            <input id="profile-theme" placeholder="#7b5cff">
+
+            <div style="margin-top:8px; text-align:right;">
+              <button class="btn small secondary" onclick="resetProfile()">Reset</button>
+              <button class="btn small" onclick="saveProfile()">Save</button>
+            </div>
           </div>
+          <div class="card">
+            <h2>Local Data</h2>
+            <p style="font-size:0.85rem;">
+              All data (cart, orders, messages, profile) is stored in <code>localStorage</code> only.
+            </p>
+            <button class="btn small danger" onclick="clearAllData()">Clear All Local Data</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADMIN -->
+      <div id="page-admin" class="page">
+        <div class="page-header">
+          <div>
+            <h1>Admin Panel</h1>
+            <p>View raw JSON of your local Shadow Market state.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>State Snapshot</h2>
+          <pre id="admin-state" style="max-height:260px; overflow-y:auto; font-size:0.75rem; background:#020308; padding:8px; border-radius:6px; border:1px solid var(--border);"></pre>
+          <button class="btn small secondary" onclick="refreshAdminState()">Refresh</button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- CART DRAWER -->
+<div id="cart-drawer">
+  <div id="cart-header">
+    <strong>Cart</strong>
+    <button class="btn small secondary" onclick="toggleCart()">Close</button>
+  </div>
+  <div id="cart-items"></div>
+  <div id="cart-footer">
+    <span>Total: <strong id="cart-total">0</strong> cr</span>
+    <button class="btn small" onclick="checkout()">Checkout</button>
+  </div>
+</div>
+
 <script>
 const $ = (s) => document.querySelector(s);
 const $$ = (s) => document.querySelectorAll(s);
+
+document.getElementById('footer-year').textContent = new Date().getFullYear();
 
 /* NAV */
 $$('.sidebar-btn').forEach(btn => {
@@ -517,189 +789,295 @@ function goTo(page) {
   $$('.page').forEach(p => p.classList.remove('active'));
   const pageDiv = document.getElementById('page-' + page);
   if (pageDiv) pageDiv.classList.add('active');
+
+  $('#topbar-page-label').textContent = page
+    .split('-')
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
 }
 
-/* FAKE DATA */
-const videos = [
+/* DATA */
+const listings = [
+  { id: 'acc-01', title: 'Shadow Access Node', category: 'access', price: 120, vendor: 'GhostLayer', rating: 4.8 },
+  { id: 'tool-01', title: 'Packet Trace Visualizer', category: 'tools', price: 60, vendor: 'TraceLab', rating: 4.5 },
+  { id: 'data-01', title: 'Synthetic Log Dataset', category: 'data', price: 45, vendor: 'LogForge', rating: 4.2 },
+  { id: 'svc-01', title: 'UI Wireframe Session', category: 'services', price: 90, vendor: 'ShadowUX', rating: 4.9 },
+  { id: 'tool-02', title: 'Local Sandbox Monitor', category: 'tools', price: 35, vendor: 'SandboxOps', rating: 4.1 },
+  { id: 'acc-02', title: 'Mock API Gateway', category: 'access', price: 75, vendor: 'MockNet', rating: 4.3 }
+];
+
+let cart = JSON.parse(localStorage.getItem('sm_cart') || '[]');
+let orders = JSON.parse(localStorage.getItem('sm_orders') || '[]');
+
+const threadsSeed = [
   {
-    id: 'shadow-intro',
-    title: 'Welcome to Shadowtube',
-    channel: 'Shadowtech',
-    views: '1.2K',
-    age: '1 day ago',
-    desc: 'Intro to the Shadowtube concept — a Shadowtech themed video hub.'
+    id: 'ghostlayer',
+    name: 'GhostLayer',
+    preview: 'Shadow Access Node details...',
+    messages: [
+      { from: 'them', text: 'Welcome to GhostLayer. All items here are fictional.', time: '00:01' },
+      { from: 'them', text: 'Use this UI as a design sandbox only.', time: '00:02' }
+    ]
   },
   {
-    id: 'bot-builder',
-    title: 'Building a Shadowtech Bot',
-    channel: 'Shadowtech Dev',
-    views: '3.4K',
-    age: '3 days ago',
-    desc: 'Walkthrough of a one-file bot builder layout.'
-  },
-  {
-    id: 'ui-showcase',
-    title: 'Cyber UI Showcase',
-    channel: 'Shadow Design',
-    views: '980',
-    age: '5 days ago',
-    desc: 'Showcase of dark, neon, cyber-themed UI components.'
-  },
-  {
-    id: 'shadow-walk',
-    title: 'Night Walk — Shadow POV',
-    channel: 'Shadows',
-    views: '2.1K',
-    age: '1 week ago',
-    desc: 'Chill night walk with Shadowtech vibes.'
+    id: 'shadowux',
+    name: 'ShadowUX',
+    preview: 'Wireframe session notes...',
+    messages: [
+      { from: 'them', text: 'We can mock up any layout you want.', time: '00:03' }
+    ]
   }
 ];
 
-let currentVideo = null;
-let comments = JSON.parse(localStorage.getItem('shadowtube_comments') || '{}');
-let history = JSON.parse(localStorage.getItem('shadowtube_history') || '[]');
+let threads = JSON.parse(localStorage.getItem('sm_threads') || 'null') || threadsSeed;
+let currentThreadId = null;
 
-/* HOME RENDER */
-function renderHome() {
-  const grid = $('#home-grid');
+let profile = JSON.parse(localStorage.getItem('sm_profile') || 'null') || {
+  handle: 'ShadowOwner',
+  bio: 'Owner of this fictional Shadow Market UI.',
+  theme: '#7b5cff'
+};
+
+/* MARKET RENDER */
+function renderMarket() {
+  const grid = $('#market-grid');
   grid.innerHTML = '';
-  videos.forEach(v => {
-    const card = document.createElement('div');
-    card.className = 'video-card';
-    card.onclick = () => openVideo(v.id);
-    card.innerHTML = \`
-      <div class="video-thumb"></div>
-      <div class="video-info">
-        <div class="video-title">\${v.title}</div>
-        <div class="video-meta">\${v.channel}</div>
-        <div class="video-meta">\${v.views} views • \${v.age}</div>
+
+  const cat = $('#filter-category').value;
+  const sort = $('#filter-sort').value;
+  const search = $('#filter-search').value.toLowerCase();
+
+  let items = listings.slice();
+  if (cat !== 'all') items = items.filter(i => i.category === cat);
+  if (search) items = items.filter(i => i.title.toLowerCase().includes(search));
+
+  if (sort === 'price-asc') items.sort((a,b) => a.price - b.price);
+  if (sort === 'price-desc') items.sort((a,b) => b.price - a.price);
+
+  items.forEach(i => {
+    const div = document.createElement('div');
+    div.className = 'item-card';
+    div.innerHTML = \`
+      <div class="item-tag">\${i.category.toUpperCase()}</div>
+      <div class="item-title">\${i.title}</div>
+      <div class="item-meta">Vendor: \${i.vendor} • ⭐ \${i.rating}</div>
+      <div class="item-price">\${i.price} cr</div>
+      <div style="margin-top:4px; text-align:right;">
+        <button class="btn small" onclick="addToCart('\${i.id}')">Add to cart</button>
       </div>
     \`;
-    grid.appendChild(card);
+    grid.appendChild(div);
   });
+
+  $('#stat-listings').textContent = listings.length;
 }
 
-/* WATCH */
-function openVideo(id) {
-  const v = videos.find(x => x.id === id);
-  if (!v) return;
-  currentVideo = v;
-  $('#watch-title').textContent = v.title;
-  $('#watch-meta').textContent = \`\${v.views} views • \${v.channel} • \${v.age}\`;
-  $('#watch-desc').textContent = v.desc;
-  goTo('watch');
-  addToHistory(v);
-  renderComments();
-  renderUpNext();
+/* CART */
+function addToCart(id) {
+  const item = listings.find(l => l.id === id);
+  if (!item) return;
+  cart.push({ id: item.id, title: item.title, price: item.price });
+  localStorage.setItem('sm_cart', JSON.stringify(cart));
+  renderCart();
 }
 
-function renderUpNext() {
-  const list = $('#upnext-list');
-  list.innerHTML = '';
-  videos.filter(v => !currentVideo || v.id !== currentVideo.id).forEach(v => {
-    const item = document.createElement('div');
-    item.className = 'upnext-item';
-    item.onclick = () => openVideo(v.id);
-    item.innerHTML = \`
-      <div class="upnext-thumb"></div>
-      <div class="upnext-info">
-        <div><strong>\${v.title}</strong></div>
-        <div style="color:var(--muted);">\${v.channel}</div>
-        <div style="color:var(--muted); font-size:0.75rem;">\${v.views} views • \${v.age}</div>
-      </div>
+function renderCart() {
+  $('#cart-count').textContent = cart.length;
+  const itemsDiv = $('#cart-items');
+  itemsDiv.innerHTML = '';
+  let total = 0;
+  cart.forEach((c, idx) => {
+    total += c.price;
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.innerHTML = \`
+      <strong>\${c.title}</strong><br>
+      <span style="color:var(--muted);">\${c.price} cr</span>
+      <button class="btn small secondary" style="float:right;" onclick="removeFromCart(\${idx})">✕</button>
     \`;
-    list.appendChild(item);
+    itemsDiv.appendChild(div);
   });
+  $('#cart-total').textContent = total;
 }
 
-/* COMMENTS */
-function renderComments() {
-  const list = $('#comments-list');
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  localStorage.setItem('sm_cart', JSON.stringify(cart));
+  renderCart();
+}
+
+function toggleCart() {
+  const drawer = $('#cart-drawer');
+  drawer.style.display = drawer.style.display === 'flex' ? 'none' : 'flex';
+}
+
+function checkout() {
+  if (!cart.length) return alert('Cart is empty.');
+  const order = {
+    id: Date.now(),
+    items: cart.slice(),
+    total: cart.reduce((s, c) => s + c.price, 0),
+    time: new Date().toLocaleString()
+  };
+  orders.push(order);
+  localStorage.setItem('sm_orders', JSON.stringify(orders));
+  cart = [];
+  localStorage.setItem('sm_cart', JSON.stringify(cart));
+  renderCart();
+  renderOrders();
+  $('#stat-orders').textContent = orders.length;
+  alert('Order created locally (UI only).');
+}
+
+/* ORDERS */
+function renderOrders() {
+  const list = $('#orders-list');
   list.innerHTML = '';
-  if (!currentVideo) return;
-  const vidComments = comments[currentVideo.id] || [];
-  if (!vidComments.length) {
-    list.innerHTML = '<small style="color:var(--muted);">No comments yet. Be the first.</small>';
+  if (!orders.length) {
+    list.innerHTML = '<small style="color:var(--muted);">No orders yet. Checkout from the cart to create one.</small>';
     return;
   }
-  vidComments.forEach(c => {
+  orders.slice().reverse().forEach(o => {
     const div = document.createElement('div');
-    div.className = 'comment';
+    div.className = 'order-item';
     div.innerHTML = \`
-      <strong>\${c.author}</strong> • <small>\${c.time}</small><br>
-      <span>\${c.text}</span>
+      <strong>Order #\${o.id}</strong> — \${o.total} cr<br>
+      <small style="color:var(--muted);">\${o.time}</small><br>
+      <small style="color:var(--muted);">Items: \${o.items.map(i => i.title).join(', ')}</small>
     \`;
     list.appendChild(div);
   });
 }
 
-function addComment() {
-  if (!currentVideo) return;
-  const input = $('#comment-input');
+/* MESSAGES */
+function renderThreads() {
+  const list = $('#thread-list');
+  list.innerHTML = '';
+  threads.forEach(t => {
+    const div = document.createElement('div');
+    div.className = 'thread-item' + (t.id === currentThreadId ? ' active' : '');
+    div.onclick = () => openThread(t.id);
+    div.innerHTML = \`
+      <strong>\${t.name}</strong><br>
+      <small style="color:var(--muted);">\${t.preview}</small>
+    \`;
+    list.appendChild(div);
+  });
+  $('#stat-threads').textContent = threads.length;
+}
+
+function openThread(id) {
+  currentThreadId = id;
+  const t = threads.find(x => x.id === id);
+  if (!t) return;
+  $('#thread-header').textContent = 'Thread with ' + t.name;
+  $('#msg-input').disabled = false;
+  $('#msg-send-btn').disabled = false;
+  renderThreadMessages();
+  renderThreads();
+}
+
+function renderThreadMessages() {
+  const t = threads.find(x => x.id === currentThreadId);
+  const box = $('#thread-messages');
+  box.innerHTML = '';
+  if (!t) return;
+  t.messages.forEach(m => {
+    const div = document.createElement('div');
+    div.className = 'msg-bubble ' + (m.from === 'me' ? 'me' : 'them');
+    div.innerHTML = \`
+      <small style="color:var(--muted);">\${m.from === 'me' ? profile.handle : t.name} • \${m.time}</small><br>
+      <span>\${m.text}</span>
+    \`;
+    box.appendChild(div);
+  });
+  box.scrollTop = box.scrollHeight;
+}
+
+function sendMessage() {
+  const input = $('#msg-input');
   const text = input.value.trim();
-  if (!text) return;
-  const vidComments = comments[currentVideo.id] || [];
-  vidComments.push({
-    author: 'You',
+  if (!text || !currentThreadId) return;
+  const t = threads.find(x => x.id === currentThreadId);
+  if (!t) return;
+  t.messages.push({
+    from: 'me',
     text,
     time: new Date().toLocaleTimeString()
   });
-  comments[currentVideo.id] = vidComments;
-  localStorage.setItem('shadowtube_comments', JSON.stringify(comments));
   input.value = '';
-  renderComments();
+  localStorage.setItem('sm_threads', JSON.stringify(threads));
+  renderThreadMessages();
 }
 
-/* HISTORY / LIBRARY */
-function addToHistory(v) {
-  history = history.filter(x => x.id !== v.id);
-  history.unshift({ id: v.id, title: v.title, channel: v.channel, time: new Date().toLocaleString() });
-  if (history.length > 30) history.pop();
-  localStorage.setItem('shadowtube_history', JSON.stringify(history));
-  renderHistory();
-  renderLibrary();
+/* PROFILE */
+function renderProfile() {
+  $('#profile-handle').value = profile.handle;
+  $('#profile-bio').value = profile.bio;
+  $('#profile-theme').value = profile.theme;
 }
 
-function renderHistory() {
-  const list = $('#history-list');
-  list.innerHTML = '';
-  if (!history.length) {
-    list.innerHTML = '<small style="color:var(--muted);">No history yet.</small>';
-    return;
-  }
-  history.forEach(h => {
-    const div = document.createElement('div');
-    div.className = 'simple-item';
-    div.innerHTML = \`
-      <strong>\${h.title}</strong> — <span style="color:var(--muted);">\${h.channel}</span><br>
-      <small style="color:var(--muted);">\${h.time}</small>
-    \`;
-    list.appendChild(div);
-  });
+function saveProfile() {
+  profile.handle = $('#profile-handle').value.trim() || 'ShadowOwner';
+  profile.bio = $('#profile-bio').value.trim();
+  profile.theme = $('#profile-theme').value.trim() || '#7b5cff';
+  localStorage.setItem('sm_profile', JSON.stringify(profile));
+  alert('Profile saved locally.');
 }
 
-function renderLibrary() {
-  const list = $('#library-list');
-  list.innerHTML = '';
-  if (!history.length) {
-    list.innerHTML = '<small style="color:var(--muted);">Nothing in your library yet. Watching videos will show them here.</small>';
-    return;
-  }
-  history.slice(0, 6).forEach(h => {
-    const div = document.createElement('div');
-    div.className = 'simple-item';
-    div.innerHTML = \`
-      <strong>\${h.title}</strong> — <span style="color:var(--muted);">\${h.channel}</span>
-    \`;
-    list.appendChild(div);
-  });
+function resetProfile() {
+  profile = {
+    handle: 'ShadowOwner',
+    bio: 'Owner of this fictional Shadow Market UI.',
+    theme: '#7b5cff'
+  };
+  localStorage.setItem('sm_profile', JSON.stringify(profile));
+  renderProfile();
+}
+
+/* ADMIN */
+function refreshAdminState() {
+  const state = {
+    listings,
+    cart,
+    orders,
+    threads,
+    profile
+  };
+  $('#admin-state').textContent = JSON.stringify(state, null, 2);
+}
+
+/* CLEAR DATA */
+function clearAllData() {
+  if (!confirm('Clear all local Shadow Market data?')) return;
+  cart = [];
+  orders = [];
+  threads = threadsSeed.slice();
+  profile = {
+    handle: 'ShadowOwner',
+    bio: 'Owner of this fictional Shadow Market UI.',
+    theme: '#7b5cff'
+  };
+  localStorage.removeItem('sm_cart');
+  localStorage.removeItem('sm_orders');
+  localStorage.removeItem('sm_threads');
+  localStorage.removeItem('sm_profile');
+  renderCart();
+  renderOrders();
+  renderThreads();
+  renderProfile();
+  refreshAdminState();
 }
 
 /* INIT */
 function init() {
-  renderHome();
-  renderHistory();
-  renderLibrary();
+  renderMarket();
+  renderCart();
+  renderOrders();
+  renderThreads();
+  renderProfile();
+  refreshAdminState();
+  $('#stat-orders').textContent = orders.length;
 }
 init();
 </script>
