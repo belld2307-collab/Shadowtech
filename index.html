@@ -2,22 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Shadow Market</title>
+<title>ShadowTech Bot Builder</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 :root {
-  --bg: #020308;
-  --bg-alt: #050814;
-  --panel: #0c1020;
-  --panel-soft: #090c18;
+  --bg: #05060a;
+  --bg-alt: #0b0e18;
+  --panel: #141827;
+  --panel-soft: #101321;
   --accent: #7b5cff;
   --accent-soft: rgba(123, 92, 255, 0.2);
   --accent-strong: #c45bff;
   --danger: #ff4b81;
   --text: #f5f7ff;
-  --muted: #8f96c2;
-  --border: #1c2136;
+  --muted: #9aa0c2;
+  --border: #22263a;
   --radius: 8px;
   --shadow: 0 0 25px rgba(0,0,0,0.7);
   --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -32,7 +32,7 @@
 body {
   margin: 0;
   font-family: var(--font);
-  background: radial-gradient(circle at top, #171b33 0, #020308 55%);
+  background: radial-gradient(circle at top, #171b33 0, #05060a 55%);
   color: var(--text);
   height: 100vh;
 }
@@ -47,7 +47,7 @@ body {
 /* SIDEBAR */
 #sidebar {
   width: 260px;
-  background: linear-gradient(180deg, var(--bg-alt), #020308);
+  background: linear-gradient(180deg, var(--bg-alt), #05060a);
   border-right: 1px solid var(--border);
   padding: 12px;
   display: flex;
@@ -141,7 +141,7 @@ body {
   justify-content: space-between;
   padding: 0 16px;
   border-bottom: 1px solid var(--border);
-  background: rgba(2,3,8,0.95);
+  background: rgba(5,6,10,0.95);
   backdrop-filter: blur(10px);
 }
 
@@ -189,7 +189,6 @@ body {
   flex: 1;
   padding: 14px 16px;
   overflow-y: auto;
-  position: relative;
 }
 
 /* PAGES */
@@ -281,218 +280,53 @@ body {
   margin-left: 6px;
 }
 
-/* MARKETPLACE */
-.market-layout {
-  display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  gap: 12px;
-}
-
-.market-filters {
-  background: var(--panel);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  padding: 10px;
-  font-size: 0.85rem;
-}
-
-.market-filters label {
-  display: block;
-  margin-top: 6px;
-  margin-bottom: 2px;
-  font-size: 0.8rem;
-  color: var(--muted);
-}
-
-.market-filters select,
-.market-filters input {
-  width: 100%;
-  padding: 6px 8px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  background: #020308;
-  color: var(--text);
-  font-size: 0.8rem;
-}
-
-.market-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-  gap: 10px;
-}
-
-.item-card {
-  background: var(--panel-soft);
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  padding: 8px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.item-tag {
+/* DASHBOARD */
+.badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 999px;
   font-size: 0.7rem;
   text-transform: uppercase;
-  color: var(--muted);
-}
-
-.item-title {
-  font-weight: 600;
-}
-
-.item-meta {
-  font-size: 0.75rem;
-  color: var(--muted);
-}
-
-.item-price {
-  font-size: 0.85rem;
-  color: var(--accent-strong);
-}
-
-/* CART DRAWER */
-#cart-drawer {
-  position: fixed;
-  right: 16px;
-  bottom: 16px;
-  width: 260px;
-  max-height: 60vh;
-  background: var(--panel);
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-  padding: 10px;
-  font-size: 0.85rem;
-  display: none;
-  flex-direction: column;
-}
-
-#cart-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#cart-items {
-  margin-top: 6px;
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-.cart-item {
-  padding: 4px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.cart-item:last-child {
-  border-bottom: none;
-}
-
-#cart-footer {
-  margin-top: 6px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* MESSAGES */
-.messages-layout {
-  display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  gap: 12px;
-}
-
-.thread-list {
-  background: var(--panel);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  padding: 8px;
-  font-size: 0.85rem;
-}
-
-.thread-item {
-  padding: 6px 8px;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-bottom: 4px;
-}
-
-.thread-item.active,
-.thread-item:hover {
   background: var(--accent-soft);
+  color: var(--accent);
 }
 
-.thread-main {
-  background: var(--panel);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  padding: 8px;
-  font-size: 0.85rem;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-#thread-messages {
-  flex: 1;
-  overflow-y: auto;
-  padding-right: 4px;
-}
-
-.msg-bubble {
-  margin-top: 6px;
-  padding: 6px 8px;
-  border-radius: 6px;
-  max-width: 80%;
-  font-size: 0.8rem;
-}
-
-.msg-bubble.me {
-  margin-left: auto;
-  background: var(--accent-soft);
-}
-
-.msg-bubble.them {
-  background: var(--panel-soft);
-}
-
-#msg-form {
-  margin-top: 6px;
-  display: flex;
-  gap: 6px;
-}
-
-#msg-input {
-  flex: 1;
-  padding: 6px 8px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: #020308;
-  color: var(--text);
-  font-size: 0.8rem;
-}
-
-/* ORDERS */
-.order-item {
+/* WORKSPACES */
+.workspace-list-item {
   padding: 6px 8px;
   border-radius: 6px;
   background: var(--panel-soft);
   border: 1px solid var(--border);
   margin-bottom: 6px;
   font-size: 0.85rem;
+  cursor: pointer;
 }
 
-/* PROFILE */
-.profile-grid {
+.workspace-list-item.active {
+  border-color: var(--accent);
+}
+
+/* BUILDER LAYOUT */
+.builder-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
   gap: 12px;
 }
 
-.profile-card label {
+.builder-panel {
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  font-size: 0.85rem;
+}
+
+.builder-panel h2 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+}
+
+.builder-panel label {
   display: block;
   margin-top: 6px;
   margin-bottom: 2px;
@@ -500,19 +334,120 @@ body {
   color: var(--muted);
 }
 
-.profile-card input,
-.profile-card textarea {
+.builder-panel input,
+.builder-panel select,
+.builder-panel textarea {
   width: 100%;
   padding: 6px 8px;
   border-radius: 6px;
   border: 1px solid var(--border);
-  background: #020308;
+  background: #05060f;
   color: var(--text);
   font-size: 0.85rem;
+  font-family: var(--font);
 }
 
-.profile-card textarea {
+.builder-panel textarea {
   resize: vertical;
+}
+
+/* ACTION LIST */
+.action-list {
+  margin-top: 8px;
+}
+
+.action-item {
+  background: #05060f;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  padding: 6px 8px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action-item-main {
+  font-size: 0.8rem;
+}
+
+.action-item-controls button {
+  margin-left: 4px;
+}
+
+/* LOGS */
+#logs-output {
+  max-height: 260px;
+  overflow-y: auto;
+  font-size: 0.75rem;
+  background: #05060f;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+/* PRICING */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.pricing-card {
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 14px;
+  box-shadow: var(--shadow);
+  font-size: 0.9rem;
+}
+
+.pricing-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.pricing-price {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.pricing-old {
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-decoration: line-through;
+  margin-left: 4px;
+}
+
+.pricing-save {
+  font-size: 0.75rem;
+  color: #4ade80;
+  margin-left: 4px;
+}
+
+.pricing-features {
+  margin-top: 8px;
+  font-size: 0.8rem;
+}
+
+.pricing-features li {
+  margin-bottom: 4px;
+}
+
+/* AUTH BANNER */
+#auth-banner {
+  background: linear-gradient(135deg, #1b2140, #101321);
+  border-radius: var(--radius);
+  border: 1px solid var(--accent-soft);
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  font-size: 0.85rem;
 }
 
 /* RESPONSIVE */
@@ -526,9 +461,10 @@ body {
   #main {
     padding: 10px;
   }
-  .market-layout,
-  .messages-layout,
-  .profile-grid {
+  .builder-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .pricing-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 }
@@ -540,34 +476,34 @@ body {
   <!-- SIDEBAR -->
   <div id="sidebar">
     <div id="sidebar-header">
-      <div id="brand"><span class="mark">SM</span>SHADOW MARKET</div>
-      <div id="brand-sub">Fictional dark marketplace UI</div>
+      <div id="brand"><span class="mark">SB</span>SHADOWBOT STUDIO</div>
+      <div id="brand-sub">Discord bot creator front‑end</div>
     </div>
 
     <div class="sidebar-section-title">Main</div>
     <button class="sidebar-btn active" data-page="dashboard">
       <span class="icon">🏠</span> Dashboard
     </button>
-    <button class="sidebar-btn" data-page="market">
-      <span class="icon">🛒</span> Marketplace
+    <button class="sidebar-btn" data-page="bots">
+      <span class="icon">🤖</span> Bot Workspaces
     </button>
-    <button class="sidebar-btn" data-page="messages">
-      <span class="icon">💬</span> Messages
+    <button class="sidebar-btn" data-page="builder">
+      <span class="icon">🧩</span> Command Builder
     </button>
-    <button class="sidebar-btn" data-page="orders">
-      <span class="icon">📦</span> Orders
+    <button class="sidebar-btn" data-page="logs">
+      <span class="icon">📜</span> Logs
     </button>
-    <button class="sidebar-btn" data-page="profile">
-      <span class="icon">👤</span> Profile
+    <button class="sidebar-btn" data-page="pricing">
+      <span class="icon">💎</span> Pricing
     </button>
 
-    <div class="sidebar-section-title">Admin</div>
-    <button class="sidebar-btn" data-page="admin">
-      <span class="icon">🛠</span> Admin Panel
+    <div class="sidebar-section-title">Account</div>
+    <button class="sidebar-btn" data-page="account">
+      <span class="icon">👤</span> Account
     </button>
 
     <div id="sidebar-footer">
-      Shadow Market UI • Local only<br>
+      ShadowBot Studio • Front‑end only<br>
       <span id="footer-year"></span>
     </div>
   </div>
@@ -577,13 +513,13 @@ body {
     <!-- TOPBAR -->
     <div id="topbar">
       <div id="topbar-left">
-        <span id="topbar-page-label">Dashboard</span> • Shadow layer: <strong>Local Sandbox</strong>
+        <span id="topbar-page-label">Dashboard</span> • API: <strong id="api-status">Mock</strong>
       </div>
       <div id="topbar-right">
-        <span id="status-pill">Offline / Mock</span>
+        <span id="status-pill">Not connected</span>
         <div id="user-pill">
           <div id="user-avatar">ST</div>
-          <span>Owner</span>
+          <span id="user-name">Guest</span>
         </div>
       </div>
     </div>
@@ -592,178 +528,234 @@ body {
     <div id="main">
       <!-- DASHBOARD -->
       <div id="page-dashboard" class="page active">
-        <div class="page-header">
+        <div id="auth-banner">
           <div>
-            <h1>Dashboard</h1>
-            <p>Overview of your fictional Shadow Market activity.</p>
+            <strong>Connect with Discord</strong><br>
+            <span style="color:var(--muted);">
+              Real version should use OAuth2 “Sign in with Discord” — not raw tokens.
+            </span>
+          </div>
+          <div>
+            <button class="btn small" onclick="fakeConnect()">Connect (Mock)</button>
           </div>
         </div>
 
         <div class="grid grid-3">
           <div class="card">
-            <h2>Market Snapshot</h2>
-            <small>Fake stats, real vibes.</small>
+            <h2>Bot Workspaces</h2>
+            <small>Your bots managed by ShadowBot Studio.</small>
             <p style="margin-top:6px;">
-              Active listings: <strong id="stat-listings">0</strong><br>
-              Orders (local): <strong id="stat-orders">0</strong><br>
-              Threads: <strong id="stat-threads">0</strong>
+              Total bots: <strong id="stat-bots">0</strong><br>
+              Deployed: <strong id="stat-deployed">0</strong>
             </p>
+            <button class="btn small" onclick="goTo('bots')">Open Workspaces</button>
           </div>
           <div class="card">
-            <h2>Quick Actions</h2>
-            <button class="btn small" onclick="goTo('market')">Browse Marketplace</button>
-            <button class="btn small secondary" onclick="goTo('messages')">Open Messages</button>
-            <button class="btn small secondary" onclick="goTo('orders')">View Orders</button>
+            <h2>Command Builder</h2>
+            <small>Visual builder for commands & events.</small>
+            <p style="margin-top:6px;">
+              Build commands, preview JSON, send to backend API.
+            </p>
+            <button class="btn small" onclick="goTo('builder')">Open Builder</button>
           </div>
           <div class="card">
-            <h2>Disclaimer</h2>
+            <h2>Monetization</h2>
             <p style="font-size:0.8rem; color:var(--muted);">
-              This is a UI sandbox only. No real transactions, no real network calls, no real marketplace. Use it as a design playground.
+              Charge for hosting, premium features, extra bots, priority support.  
+              Backend must be secure and ToS‑compliant.
             </p>
+            <button class="btn small secondary" onclick="goTo('pricing')">View Pricing Layout</button>
           </div>
         </div>
       </div>
 
-      <!-- MARKETPLACE -->
-      <div id="page-market" class="page">
+      <!-- BOT WORKSPACES -->
+      <div id="page-bots" class="page">
         <div class="page-header">
           <div>
-            <h1>Marketplace</h1>
-            <p>Browse fictional listings and add them to your local cart.</p>
+            <h1>Bot Workspaces</h1>
+            <p>Each workspace = one Discord bot managed by your backend.</p>
           </div>
           <div>
-            <button class="btn small secondary" onclick="toggleCart()">Cart (<span id="cart-count">0</span>)</button>
+            <button class="btn small" onclick="createWorkspace()">New Workspace</button>
           </div>
         </div>
 
-        <div class="market-layout">
-          <div class="market-filters">
-            <h3 style="margin-top:0; font-size:0.9rem;">Filters</h3>
-            <label for="filter-category">Category</label>
-            <select id="filter-category" onchange="renderMarket()">
-              <option value="all">All</option>
-              <option value="access">Access</option>
-              <option value="tools">Tools</option>
-              <option value="data">Data</option>
-              <option value="services">Services</option>
-            </select>
-
-            <label for="filter-sort">Sort by</label>
-            <select id="filter-sort" onchange="renderMarket()">
-              <option value="featured">Featured</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-            </select>
-
-            <label for="filter-search">Search</label>
-            <input id="filter-search" placeholder="Search titles..." oninput="renderMarket()">
-          </div>
-
-          <div class="market-grid" id="market-grid"></div>
-        </div>
-      </div>
-
-      <!-- MESSAGES -->
-      <div id="page-messages" class="page">
-        <div class="page-header">
-          <div>
-            <h1>Messages</h1>
-            <p>Fake encrypted threads with fictional vendors.</p>
-          </div>
-        </div>
-
-        <div class="messages-layout">
-          <div class="thread-list" id="thread-list"></div>
-          <div class="thread-main">
-            <div id="thread-header" style="font-size:0.85rem; color:var(--muted);">
-              Select a thread on the left.
-            </div>
-            <div id="thread-messages"></div>
-            <div id="msg-form">
-              <input id="msg-input" placeholder="Send a message..." disabled>
-              <button class="btn small" onclick="sendMessage()" disabled id="msg-send-btn">Send</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ORDERS -->
-      <div id="page-orders" class="page">
-        <div class="page-header">
-          <div>
-            <h1>Orders</h1>
-            <p>Local “orders” created when you checkout your cart.</p>
-          </div>
-        </div>
-
-        <div id="orders-list"></div>
-      </div>
-
-      <!-- PROFILE -->
-      <div id="page-profile" class="page">
-        <div class="page-header">
-          <div>
-            <h1>Profile</h1>
-            <p>Local profile settings for this Shadow Market UI.</p>
-          </div>
-        </div>
-
-        <div class="profile-grid">
-          <div class="card profile-card">
-            <h2>Identity</h2>
-            <label for="profile-handle">Handle</label>
-            <input id="profile-handle" placeholder="ShadowOwner">
-
-            <label for="profile-bio">Bio</label>
-            <textarea id="profile-bio" rows="3" placeholder="Short description..."></textarea>
-
-            <label for="profile-theme">Theme Accent</label>
-            <input id="profile-theme" placeholder="#7b5cff">
-
-            <div style="margin-top:8px; text-align:right;">
-              <button class="btn small secondary" onclick="resetProfile()">Reset</button>
-              <button class="btn small" onclick="saveProfile()">Save</button>
-            </div>
+        <div class="grid grid-2">
+          <div class="card">
+            <h2>Your Bots</h2>
+            <div id="workspace-list"></div>
           </div>
           <div class="card">
-            <h2>Local Data</h2>
-            <p style="font-size:0.85rem;">
-              All data (cart, orders, messages, profile) is stored in <code>localStorage</code> only.
-            </p>
-            <button class="btn small danger" onclick="clearAllData()">Clear All Local Data</button>
+            <h2>Selected Bot</h2>
+            <div id="workspace-detail" style="font-size:0.85rem; color:var(--muted);">
+              Select a workspace on the left.
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- ADMIN -->
-      <div id="page-admin" class="page">
+      <!-- COMMAND BUILDER -->
+      <div id="page-builder" class="page">
         <div class="page-header">
           <div>
-            <h1>Admin Panel</h1>
-            <p>View raw JSON of your local Shadow Market state.</p>
+            <h1>Command Builder</h1>
+            <p>Build commands for the selected workspace and send to backend.</p>
+          </div>
+          <div>
+            <button class="btn small secondary" onclick="resetCommandForm()">New Command</button>
+          </div>
+        </div>
+
+        <div class="builder-layout">
+          <div class="builder-panel">
+            <h2>Command Settings</h2>
+            <label for="cmd-name">Command Name</label>
+            <input id="cmd-name" placeholder="e.g. ping, ban, help">
+
+            <label for="cmd-trigger">Trigger Type</label>
+            <select id="cmd-trigger">
+              <option value="slash">Slash Command</option>
+              <option value="prefix">Prefix Command</option>
+              <option value="button">Button Interaction</option>
+            </select>
+
+            <label for="cmd-desc">Description</label>
+            <textarea id="cmd-desc" rows="3" placeholder="What this command does..."></textarea>
+
+            <hr style="border-color:var(--border); margin:10px 0;">
+
+            <h2>Actions</h2>
+            <label for="action-type">Add Action</label>
+            <select id="action-type">
+              <option value="send-message">Send Message</option>
+              <option value="reply-embed">Reply with Embed</option>
+              <option value="add-role">Add Role</option>
+              <option value="remove-role">Remove Role</option>
+              <option value="dm-user">DM User</option>
+              <option value="log-channel">Log to Channel</option>
+            </select>
+
+            <label for="action-content">Action Content</label>
+            <textarea id="action-content" rows="2" placeholder="Message text, role ID, etc."></textarea>
+
+            <div style="margin-top:8px;">
+              <button class="btn small" onclick="addCommandAction()">Add Action</button>
+            </div>
+
+            <div class="action-list" id="cmd-actions-list"></div>
+
+            <div style="margin-top:10px; text-align:right;">
+              <button class="btn small secondary" onclick="resetCommandForm()">Clear</button>
+              <button class="btn small" onclick="saveCommand()">Save Command (Local)</button>
+            </div>
+          </div>
+
+          <div class="builder-panel">
+            <h2>Commands JSON</h2>
+            <small>What you’d send to your backend API.</small>
+            <pre id="cmd-json" style="margin-top:6px; max-height:220px; overflow-y:auto; background:#05060f; padding:8px; border-radius:6px; border:1px solid var(--border); font-size:0.75rem;"></pre>
+            <div style="margin-top:8px; text-align:right;">
+              <button class="btn small secondary" onclick="sendToBackend()">Send to Backend (Mock)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOGS -->
+      <div id="page-logs" class="page">
+        <div class="page-header">
+          <div>
+            <h1>Logs</h1>
+            <p>Fake console output from backend deploy / restart calls.</p>
           </div>
         </div>
 
         <div class="card">
-          <h2>State Snapshot</h2>
-          <pre id="admin-state" style="max-height:260px; overflow-y:auto; font-size:0.75rem; background:#020308; padding:8px; border-radius:6px; border:1px solid var(--border);"></pre>
-          <button class="btn small secondary" onclick="refreshAdminState()">Refresh</button>
+          <h2>Console</h2>
+          <div id="logs-output"></div>
+        </div>
+      </div>
+
+      <!-- PRICING -->
+      <div id="page-pricing" class="page">
+        <div class="page-header">
+          <div>
+            <h1>Pricing Layout</h1>
+            <p>Use this to pitch your hosting tiers.</p>
+          </div>
+        </div>
+
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <div class="pricing-label">Single Bot</div>
+            <div>
+              <span class="pricing-price">$3.50</span>
+              <span class="pricing-old">$5.00</span>
+              <span class="pricing-save">SAVE 30%</span>
+            </div>
+            <small>Billed monthly • 1 bot workspace</small>
+            <div class="pricing-features">
+              <ul>
+                <li>1 hosted bot</li>
+                <li>Unlimited commands & events</li>
+                <li>Basic logs</li>
+                <li>Community support</li>
+              </ul>
+            </div>
+            <button class="btn small">Choose Single Bot</button>
+          </div>
+
+          <div class="pricing-card">
+            <div class="pricing-label">Unlimited Bots (Most Popular)</div>
+            <div>
+              <span class="pricing-price">$7.00</span>
+              <span class="pricing-old">$10.00</span>
+              <span class="pricing-save">SAVE 30%</span>
+            </div>
+            <small>Billed monthly • Unlimited workspaces</small>
+            <div class="pricing-features">
+              <ul>
+                <li>Unlimited hosted bots</li>
+                <li>Priority deploy queue</li>
+                <li>Advanced logs & metrics</li>
+                <li>Priority support</li>
+              </ul>
+            </div>
+            <button class="btn small">Choose Unlimited</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACCOUNT -->
+      <div id="page-account" class="page">
+        <div class="page-header">
+          <div>
+            <h1>Account</h1>
+            <p>Local mock of your account settings.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="card">
+            <h2>Profile</h2>
+            <p style="font-size:0.85rem;">
+              Real version would sync with your backend user account.
+            </p>
+            <p style="font-size:0.8rem; color:var(--muted);">
+              Use this UI as the base for your real SaaS.
+            </p>
+          </div>
+          <div class="card">
+            <h2>Data</h2>
+            <p style="font-size:0.85rem;">
+              Clear local workspaces & commands.
+            </p>
+            <button class="btn small danger" onclick="clearAllData()">Clear Local Data</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- CART DRAWER -->
-<div id="cart-drawer">
-  <div id="cart-header">
-    <strong>Cart</strong>
-    <button class="btn small secondary" onclick="toggleCart()">Close</button>
-  </div>
-  <div id="cart-items"></div>
-  <div id="cart-footer">
-    <span>Total: <strong id="cart-total">0</strong> cr</span>
-    <button class="btn small" onclick="checkout()">Checkout</button>
   </div>
 </div>
 
@@ -796,288 +788,245 @@ function goTo(page) {
     .join(' ');
 }
 
-/* DATA */
-const listings = [
-  { id: 'acc-01', title: 'Shadow Access Node', category: 'access', price: 120, vendor: 'GhostLayer', rating: 4.8 },
-  { id: 'tool-01', title: 'Packet Trace Visualizer', category: 'tools', price: 60, vendor: 'TraceLab', rating: 4.5 },
-  { id: 'data-01', title: 'Synthetic Log Dataset', category: 'data', price: 45, vendor: 'LogForge', rating: 4.2 },
-  { id: 'svc-01', title: 'UI Wireframe Session', category: 'services', price: 90, vendor: 'ShadowUX', rating: 4.9 },
-  { id: 'tool-02', title: 'Local Sandbox Monitor', category: 'tools', price: 35, vendor: 'SandboxOps', rating: 4.1 },
-  { id: 'acc-02', title: 'Mock API Gateway', category: 'access', price: 75, vendor: 'MockNet', rating: 4.3 }
-];
-
-let cart = JSON.parse(localStorage.getItem('sm_cart') || '[]');
-let orders = JSON.parse(localStorage.getItem('sm_orders') || '[]');
-
-const threadsSeed = [
-  {
-    id: 'ghostlayer',
-    name: 'GhostLayer',
-    preview: 'Shadow Access Node details...',
-    messages: [
-      { from: 'them', text: 'Welcome to GhostLayer. All items here are fictional.', time: '00:01' },
-      { from: 'them', text: 'Use this UI as a design sandbox only.', time: '00:02' }
-    ]
-  },
-  {
-    id: 'shadowux',
-    name: 'ShadowUX',
-    preview: 'Wireframe session notes...',
-    messages: [
-      { from: 'them', text: 'We can mock up any layout you want.', time: '00:03' }
-    ]
-  }
-];
-
-let threads = JSON.parse(localStorage.getItem('sm_threads') || 'null') || threadsSeed;
-let currentThreadId = null;
-
-let profile = JSON.parse(localStorage.getItem('sm_profile') || 'null') || {
-  handle: 'ShadowOwner',
-  bio: 'Owner of this fictional Shadow Market UI.',
-  theme: '#7b5cff'
-};
-
-/* MARKET RENDER */
-function renderMarket() {
-  const grid = $('#market-grid');
-  grid.innerHTML = '';
-
-  const cat = $('#filter-category').value;
-  const sort = $('#filter-sort').value;
-  const search = $('#filter-search').value.toLowerCase();
-
-  let items = listings.slice();
-  if (cat !== 'all') items = items.filter(i => i.category === cat);
-  if (search) items = items.filter(i => i.title.toLowerCase().includes(search));
-
-  if (sort === 'price-asc') items.sort((a,b) => a.price - b.price);
-  if (sort === 'price-desc') items.sort((a,b) => b.price - a.price);
-
-  items.forEach(i => {
-    const div = document.createElement('div');
-    div.className = 'item-card';
-    div.innerHTML = \`
-      <div class="item-tag">\${i.category.toUpperCase()}</div>
-      <div class="item-title">\${i.title}</div>
-      <div class="item-meta">Vendor: \${i.vendor} • ⭐ \${i.rating}</div>
-      <div class="item-price">\${i.price} cr</div>
-      <div style="margin-top:4px; text-align:right;">
-        <button class="btn small" onclick="addToCart('\${i.id}')">Add to cart</button>
-      </div>
-    \`;
-    grid.appendChild(div);
-  });
-
-  $('#stat-listings').textContent = listings.length;
+/* MOCK AUTH */
+let connected = false;
+function fakeConnect() {
+  connected = true;
+  $('#status-pill').textContent = 'Connected (Mock)';
+  $('#status-pill').style.background = 'rgba(74, 222, 128, 0.15)';
+  $('#status-pill').style.color = '#4ade80';
+  $('#user-name').textContent = 'ShadowOwner';
 }
 
-/* CART */
-function addToCart(id) {
-  const item = listings.find(l => l.id === id);
-  if (!item) return;
-  cart.push({ id: item.id, title: item.title, price: item.price });
-  localStorage.setItem('sm_cart', JSON.stringify(cart));
-  renderCart();
-}
+/* WORKSPACES */
+let workspaces = JSON.parse(localStorage.getItem('sbs_workspaces') || '[]');
+let selectedWorkspaceId = null;
 
-function renderCart() {
-  $('#cart-count').textContent = cart.length;
-  const itemsDiv = $('#cart-items');
-  itemsDiv.innerHTML = '';
-  let total = 0;
-  cart.forEach((c, idx) => {
-    total += c.price;
-    const div = document.createElement('div');
-    div.className = 'cart-item';
-    div.innerHTML = \`
-      <strong>\${c.title}</strong><br>
-      <span style="color:var(--muted);">\${c.price} cr</span>
-      <button class="btn small secondary" style="float:right;" onclick="removeFromCart(\${idx})">✕</button>
-    \`;
-    itemsDiv.appendChild(div);
-  });
-  $('#cart-total').textContent = total;
-}
-
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  localStorage.setItem('sm_cart', JSON.stringify(cart));
-  renderCart();
-}
-
-function toggleCart() {
-  const drawer = $('#cart-drawer');
-  drawer.style.display = drawer.style.display === 'flex' ? 'none' : 'flex';
-}
-
-function checkout() {
-  if (!cart.length) return alert('Cart is empty.');
-  const order = {
+function createWorkspace() {
+  const name = prompt('Workspace name (bot name):', 'My Shadow Bot');
+  if (!name) return;
+  const ws = {
     id: Date.now(),
-    items: cart.slice(),
-    total: cart.reduce((s, c) => s + c.price, 0),
-    time: new Date().toLocaleString()
+    name,
+    status: 'stopped',
+    commands: []
   };
-  orders.push(order);
-  localStorage.setItem('sm_orders', JSON.stringify(orders));
-  cart = [];
-  localStorage.setItem('sm_cart', JSON.stringify(cart));
-  renderCart();
-  renderOrders();
-  $('#stat-orders').textContent = orders.length;
-  alert('Order created locally (UI only).');
+  workspaces.push(ws);
+  localStorage.setItem('sbs_workspaces', JSON.stringify(workspaces));
+  renderWorkspaces();
 }
 
-/* ORDERS */
-function renderOrders() {
-  const list = $('#orders-list');
+function renderWorkspaces() {
+  const list = $('#workspace-list');
   list.innerHTML = '';
-  if (!orders.length) {
-    list.innerHTML = '<small style="color:var(--muted);">No orders yet. Checkout from the cart to create one.</small>';
+  if (!workspaces.length) {
+    list.innerHTML = '<small style="color:var(--muted);">No workspaces yet. Create one.</small>';
+  } else {
+    workspaces.forEach(ws => {
+      const div = document.createElement('div');
+      div.className = 'workspace-list-item' + (ws.id === selectedWorkspaceId ? ' active' : '');
+      div.onclick = () => selectWorkspace(ws.id);
+      div.innerHTML = \`
+        <strong>\${ws.name}</strong><br>
+        <small style="color:var(--muted);">Status: \${ws.status}</small>
+      \`;
+      list.appendChild(div);
+    });
+  }
+  $('#stat-bots').textContent = workspaces.length;
+  $('#stat-deployed').textContent = workspaces.filter(w => w.status === 'running').length;
+}
+
+function selectWorkspace(id) {
+  selectedWorkspaceId = id;
+  const ws = workspaces.find(w => w.id === id);
+  if (!ws) return;
+  $('#workspace-detail').innerHTML = \`
+    <strong>\${ws.name}</strong><br>
+    <span style="color:var(--muted);">Status: \${ws.status}</span><br><br>
+    <button class="btn small" onclick="mockDeploy()">Deploy (Mock)</button>
+    <button class="btn small secondary" onclick="mockRestart()">Restart (Mock)</button>
+    <button class="btn small danger" onclick="deleteWorkspace()">Delete</button>
+  \`;
+  renderCommandsJSON();
+  renderWorkspaces();
+}
+
+function deleteWorkspace() {
+  if (!selectedWorkspaceId) return;
+  if (!confirm('Delete this workspace (local only)?')) return;
+  workspaces = workspaces.filter(w => w.id !== selectedWorkspaceId);
+  selectedWorkspaceId = null;
+  localStorage.setItem('sbs_workspaces', JSON.stringify(workspaces));
+  $('#workspace-detail').textContent = 'Select a workspace on the left.';
+  renderWorkspaces();
+  renderCommandsJSON();
+}
+
+/* COMMAND BUILDER */
+let currentCmdActions = [];
+
+function resetCommandForm() {
+  $('#cmd-name').value = '';
+  $('#cmd-trigger').value = 'slash';
+  $('#cmd-desc').value = '';
+  $('#action-type').value = 'send-message';
+  $('#action-content').value = '';
+  currentCmdActions = [];
+  renderCommandActions();
+}
+
+function addCommandAction() {
+  const type = $('#action-type').value;
+  const content = $('#action-content').value.trim();
+  if (!content) return;
+  currentCmdActions.push({ type, content });
+  $('#action-content').value = '';
+  renderCommandActions();
+}
+
+function renderCommandActions() {
+  const list = $('#cmd-actions-list');
+  list.innerHTML = '';
+  if (!currentCmdActions.length) {
+    list.innerHTML = '<small style="color:var(--muted);">No actions yet. Add one above.</small>';
     return;
   }
-  orders.slice().reverse().forEach(o => {
+  currentCmdActions.forEach((a, i) => {
     const div = document.createElement('div');
-    div.className = 'order-item';
+    div.className = 'action-item';
     div.innerHTML = \`
-      <strong>Order #\${o.id}</strong> — \${o.total} cr<br>
-      <small style="color:var(--muted);">\${o.time}</small><br>
-      <small style="color:var(--muted);">Items: \${o.items.map(i => i.title).join(', ')}</small>
+      <div class="action-item-main">
+        <strong>\${a.type}</strong><br>
+        <span>\${a.content}</span>
+      </div>
+      <div class="action-item-controls">
+        <button class="btn small secondary" onclick="moveCmdAction(\${i}, -1)">▲</button>
+        <button class="btn small secondary" onclick="moveCmdAction(\${i}, 1)">▼</button>
+        <button class="btn small danger" onclick="deleteCmdAction(\${i})">✕</button>
+      </div>
     \`;
     list.appendChild(div);
   });
 }
 
-/* MESSAGES */
-function renderThreads() {
-  const list = $('#thread-list');
-  list.innerHTML = '';
-  threads.forEach(t => {
-    const div = document.createElement('div');
-    div.className = 'thread-item' + (t.id === currentThreadId ? ' active' : '');
-    div.onclick = () => openThread(t.id);
-    div.innerHTML = \`
-      <strong>\${t.name}</strong><br>
-      <small style="color:var(--muted);">\${t.preview}</small>
-    \`;
-    list.appendChild(div);
+function moveCmdAction(index, dir) {
+  const newIndex = index + dir;
+  if (newIndex < 0 || newIndex >= currentCmdActions.length) return;
+  const temp = currentCmdActions[index];
+  currentCmdActions[index] = currentCmdActions[newIndex];
+  currentCmdActions[newIndex] = temp;
+  renderCommandActions();
+}
+
+function deleteCmdAction(index) {
+  currentCmdActions.splice(index, 1);
+  renderCommandActions();
+}
+
+function saveCommand() {
+  if (!selectedWorkspaceId) {
+    alert('Select a workspace first.');
+    return;
+  }
+  const name = $('#cmd-name').value.trim();
+  const trigger = $('#cmd-trigger').value;
+  const desc = $('#cmd-desc').value.trim();
+  if (!name) return alert('Command name required.');
+  const ws = workspaces.find(w => w.id === selectedWorkspaceId);
+  if (!ws) return;
+  ws.commands.push({
+    id: Date.now(),
+    name,
+    trigger,
+    desc,
+    actions: currentCmdActions.slice()
   });
-  $('#stat-threads').textContent = threads.length;
+  localStorage.setItem('sbs_workspaces', JSON.stringify(workspaces));
+  resetCommandForm();
+  renderCommandsJSON();
+  log('Saved command to workspace "' + ws.name + '" (local).');
 }
 
-function openThread(id) {
-  currentThreadId = id;
-  const t = threads.find(x => x.id === id);
-  if (!t) return;
-  $('#thread-header').textContent = 'Thread with ' + t.name;
-  $('#msg-input').disabled = false;
-  $('#msg-send-btn').disabled = false;
-  renderThreadMessages();
-  renderThreads();
-}
-
-function renderThreadMessages() {
-  const t = threads.find(x => x.id === currentThreadId);
-  const box = $('#thread-messages');
-  box.innerHTML = '';
-  if (!t) return;
-  t.messages.forEach(m => {
-    const div = document.createElement('div');
-    div.className = 'msg-bubble ' + (m.from === 'me' ? 'me' : 'them');
-    div.innerHTML = \`
-      <small style="color:var(--muted);">\${m.from === 'me' ? profile.handle : t.name} • \${m.time}</small><br>
-      <span>\${m.text}</span>
-    \`;
-    box.appendChild(div);
-  });
-  box.scrollTop = box.scrollHeight;
-}
-
-function sendMessage() {
-  const input = $('#msg-input');
-  const text = input.value.trim();
-  if (!text || !currentThreadId) return;
-  const t = threads.find(x => x.id === currentThreadId);
-  if (!t) return;
-  t.messages.push({
-    from: 'me',
-    text,
-    time: new Date().toLocaleTimeString()
-  });
-  input.value = '';
-  localStorage.setItem('sm_threads', JSON.stringify(threads));
-  renderThreadMessages();
-}
-
-/* PROFILE */
-function renderProfile() {
-  $('#profile-handle').value = profile.handle;
-  $('#profile-bio').value = profile.bio;
-  $('#profile-theme').value = profile.theme;
-}
-
-function saveProfile() {
-  profile.handle = $('#profile-handle').value.trim() || 'ShadowOwner';
-  profile.bio = $('#profile-bio').value.trim();
-  profile.theme = $('#profile-theme').value.trim() || '#7b5cff';
-  localStorage.setItem('sm_profile', JSON.stringify(profile));
-  alert('Profile saved locally.');
-}
-
-function resetProfile() {
-  profile = {
-    handle: 'ShadowOwner',
-    bio: 'Owner of this fictional Shadow Market UI.',
-    theme: '#7b5cff'
+/* COMMANDS JSON */
+function renderCommandsJSON() {
+  const pre = $('#cmd-json');
+  if (!selectedWorkspaceId) {
+    pre.textContent = '// Select a workspace to see its commands JSON.';
+    return;
+  }
+  const ws = workspaces.find(w => w.id === selectedWorkspaceId);
+  if (!ws || !ws.commands.length) {
+    pre.textContent = '// No commands yet for this workspace.';
+    return;
+  }
+  const payload = {
+    workspaceId: ws.id,
+    commands: ws.commands
   };
-  localStorage.setItem('sm_profile', JSON.stringify(profile));
-  renderProfile();
+  pre.textContent = JSON.stringify(payload, null, 2);
 }
 
-/* ADMIN */
-function refreshAdminState() {
-  const state = {
-    listings,
-    cart,
-    orders,
-    threads,
-    profile
+/* MOCK BACKEND SEND */
+function sendToBackend() {
+  if (!selectedWorkspaceId) {
+    alert('Select a workspace first.');
+    return;
+  }
+  const ws = workspaces.find(w => w.id === selectedWorkspaceId);
+  if (!ws) return;
+  const payload = {
+    workspaceId: ws.id,
+    commands: ws.commands
   };
-  $('#admin-state').textContent = JSON.stringify(state, null, 2);
+  // In real life: fetch('/api/workspaces/' + ws.id + '/commands', { method: 'POST', body: JSON.stringify(payload) ... })
+  log('Mock send to backend: ' + JSON.stringify(payload).slice(0, 120) + '...');
+  alert('Mock: would send commands JSON to your backend API.');
+}
+
+/* MOCK DEPLOY / RESTART */
+function mockDeploy() {
+  if (!selectedWorkspaceId) return;
+  const ws = workspaces.find(w => w.id === selectedWorkspaceId);
+  if (!ws) return;
+  ws.status = 'running';
+  localStorage.setItem('sbs_workspaces', JSON.stringify(workspaces));
+  renderWorkspaces();
+  selectWorkspace(ws.id);
+  log('Mock deploy for workspace "' + ws.name + '". Backend would start bot process here.');
+}
+
+function mockRestart() {
+  if (!selectedWorkspaceId) return;
+  const ws = workspaces.find(w => w.id === selectedWorkspaceId);
+  if (!ws) return;
+  log('Mock restart for workspace "' + ws.name + '". Backend would restart bot process.');
+}
+
+/* LOGS */
+function log(message) {
+  const out = $('#logs-output');
+  const line = document.createElement('div');
+  line.textContent = '[' + new Date().toLocaleTimeString() + '] ' + message;
+  out.appendChild(line);
+  out.scrollTop = out.scrollHeight;
 }
 
 /* CLEAR DATA */
 function clearAllData() {
-  if (!confirm('Clear all local Shadow Market data?')) return;
-  cart = [];
-  orders = [];
-  threads = threadsSeed.slice();
-  profile = {
-    handle: 'ShadowOwner',
-    bio: 'Owner of this fictional Shadow Market UI.',
-    theme: '#7b5cff'
-  };
-  localStorage.removeItem('sm_cart');
-  localStorage.removeItem('sm_orders');
-  localStorage.removeItem('sm_threads');
-  localStorage.removeItem('sm_profile');
-  renderCart();
-  renderOrders();
-  renderThreads();
-  renderProfile();
-  refreshAdminState();
+  if (!confirm('Clear all local workspaces and commands?')) return;
+  workspaces = [];
+  selectedWorkspaceId = null;
+  localStorage.removeItem('sbs_workspaces');
+  renderWorkspaces();
+  renderCommandsJSON();
+  $('#workspace-detail').textContent = 'Select a workspace on the left.';
 }
 
 /* INIT */
 function init() {
-  renderMarket();
-  renderCart();
-  renderOrders();
-  renderThreads();
-  renderProfile();
-  refreshAdminState();
-  $('#stat-orders').textContent = orders.length;
+  renderWorkspaces();
+  renderCommandsJSON();
 }
 init();
 </script>
